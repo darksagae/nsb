@@ -1,0 +1,16 @@
+## IDE and tooling
+.vs/
+.cursor/
+
+## Installers and archives
+*.zip
+*.exe
+
+## Patch and diff files
+*.patch
+patches/
+
+## Generated installation folder
+NSB_Motors_Installation/
+
+
