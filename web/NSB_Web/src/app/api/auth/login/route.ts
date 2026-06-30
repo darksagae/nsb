@@ -71,7 +71,13 @@ export async function POST(request: NextRequest) {
 
     // Mobile control centre — ControlAdmin only (e.g. developer1). Email reset applies here only.
     if (source === 'control_panel') {
-      await ensureControlAdminFromEnv();
+      const bootstrapped = await ensureControlAdminFromEnv();
+      if (!bootstrapped) {
+        return NextResponse.json(
+          { error: 'Control panel is not configured on the server' },
+          { status: 503 },
+        );
+      }
 
       const admin = await prisma.controlAdmin.findUnique({ where: { username } });
       if (!admin || admin.passwordHash !== hashPassword(password)) {
