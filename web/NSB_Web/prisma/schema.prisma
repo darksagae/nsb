@@ -1,0 +1,348 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String
+  logoUrl  String?   @map("logo_url")
+  vehicles Vehicle[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  vehicles Vehicle[]
+}
+
+model Vehicle {
+  id           Int            @id @default(autoincrement())
+  model        String
+  year         Int?
+  mileage      Int?
+  price        Int
+  salePrice    Int?           @map("sale_price")
+  status       String
+  isFeatured   Boolean        @default(false) @map("is_featured")
+  isBestSeller Boolean?       @map("is_best_seller")
+
+  // relations (make & type) — brand (make) is required for public listings and counters
+  brandId      Int
+  categoryId   Int?
+  brand        Brand          @relation(fields: [brandId], references: [id])
+  category     Category?      @relation(fields: [categoryId], references: [id])
+
+  // detailed specs
+  fuelType     String?        @map("fuel_type")
+  engineCc     Int?           @map("engine_cc")
+  transmission String?
+  color        String?
+  chassisNo    String?        @map("chassis_no") @unique
+  refNo        String?        @map("ref_no")
+  steering     String?
+  passengers   Int?
+  doors        Int?
+
+  images       VehicleImage[]
+  inquiries    Inquiry[]
+  invoices     Invoice[]
+}
+
+model VehicleImage {
+  id        Int     @id @default(autoincrement())
+  imageUrl  String  @map("image_url")
+  isPrimary Boolean @default(false) @map("is_primary")
+  vehicleId Int
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+}
+
+model BlogPost {
+  id            Int      @id @default(autoincrement())
+  title         String
+  excerpt       String
+  featuredImage String?  @map("featured_image")
+  publishedAt   DateTime @map("published_at")
+  authorName    String?  @map("author_name")
+}
+
+model Testimonial {
+  id           Int    @id @default(autoincrement())
+  customerName String @map("customer_name")
+  content      String
+  rating       Int?
+}
+
+model Setting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
+
+model Inquiry {
+  id            Int      @id @default(autoincrement())
+  type          String
+
+  customerName  String  @map("customer_name")
+  phoneNumber   String  @map("phone_number")
+  email         String
+  address       String
+
+  vehicleId     Int?    @map("vehicle_id")
+  vehicle       Vehicle? @relation(fields: [vehicleId], references: [id])
+
+  createdAt     DateTime @default(now()) @map("created_at")
+}
+
+model Invoice {
+  id            Int      @id @default(autoincrement())
+  invoiceNumber String   @unique @map("invoice_number")
+  status        String   @default("draft")
+
+  userId        Int?     @map("user_id")
+  user          SalesUser? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  salesSystemId Int?     @unique @map("sales_system_id")
+
+  vehicleId     Int?     @map("vehicle_id")
+  vehicle       Vehicle? @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+
+  // Consignee
+  consigneeName    String  @map("consignee_name")
+  consigneeAddress String? @map("consignee_address")
+  consigneeCity    String? @map("consignee_city")
+  consigneeCountry String? @map("consignee_country")
+  consigneePhone   String? @map("consignee_phone")
+  consigneeEmail   String? @map("consignee_email")
+  notifyParty      String? @default("SAME AS CONSIGNEE") @map("notify_party")
+
+  // Shipping logistics
+  portFrom         String? @map("port_from")
+  portTo           String? @map("port_to")
+  finalDestination String? @map("final_destination")
+  blIssueAt        String? @map("bl_issue_at")
+  prepaidAt        String? @map("prepaid_at")
+  shippingMark     String? @map("shipping_mark")
+
+  // Vehicle snapshot (frozen at invoice time)
+  chassisNo           String? @map("chassis_no")
+  refNo               String? @map("ref_no")
+  vehicleMake         String? @map("vehicle_make")
+  vehicleModel        String? @map("vehicle_model")
+  vehicleYear         Int?    @map("vehicle_year")
+  vehicleColor        String? @map("vehicle_color")
+  vehicleMileage      Int?    @map("vehicle_mileage")
+  vehicleTransmission String? @map("vehicle_transmission")
+  vehicleDriveType    String? @map("vehicle_drive_type")
+  vehicleDoors        Int?    @map("vehicle_doors")
+  vehiclePassengers   Int?    @map("vehicle_passengers")
+  vehicleFuelType     String? @map("vehicle_fuel_type")
+  vehicleSteering     String? @map("vehicle_steering")
+  vehicleEngineCC     Int?    @map("vehicle_engine_cc")
+  vehicleWeightKG     Float?  @map("vehicle_weight_kg")
+  vehicleDimension    String? @map("vehicle_dimension")
+  vehicleInspection   String? @default("With Pre-ship Inspection") @map("vehicle_inspection")
+
+  // Phase 1 — USD
+  cifUsd              Float?  @map("cif_usd")
+  cfMombasaUsd        Float?  @map("cf_mombasa_usd")
+  clearanceFeeUsd     Float?  @map("clearance_fee_usd")
+  cfKampalaUsd        Float?  @map("cf_kampala_usd")
+  ttChargesUsd        Float?  @map("tt_charges_usd")
+  exchangeRate        Float?  @map("exchange_rate")
+  exchangeRatePhase2  Float?  @map("exchange_rate_phase_2")
+  firstInstallmentUgx Float?  @map("first_installment_ugx")
+  cfPriceUsd          Float?  @map("cf_price_usd")
+  quantityUnits       Int     @default(1) @map("quantity_units")
+  paymentTerms        String? @map("payment_terms")
+  paymentDueDate      DateTime? @map("payment_due_date")
+
+  // Phase 2 — UGX
+  taxesURA            Float?  @map("taxes_ura")
+  numberPlatesFee     Float?  @default(714300) @map("number_plates_fee")
+  thirdPartyInsurance Float?  @map("third_party_insurance")
+  agencyFees          Float?  @map("agency_fees")
+  importDutyUgx       Float?  @map("import_duty_ugx")
+  exciseDutyUgx       Float?  @map("excise_duty_ugx")
+  vatUgx              Float?  @map("vat_ugx")
+  infrastructureLevy  Float?  @map("infrastructure_levy")
+  environmentalLevy   Float?  @map("environmental_levy")
+  withholdingTax      Float?  @map("withholding_tax")
+  registrationFee     Float?  @map("registration_fee")
+  idfUgx              Float?  @map("idf_ugx")
+  stampDutyUgx        Float?  @map("stamp_duty_ugx")
+  regFormUgx          Float?  @map("reg_form_ugx")
+  totalTaxUgx         Float?  @map("total_tax_ugx")
+  secondInstallmentUgx Float? @map("second_installment_ugx")
+  grandTotalUgx       Float?  @map("grand_total_ugx")
+
+  // PDF
+  pdfUrl         String?   @map("pdf_url")
+  pdfGeneratedAt DateTime? @map("pdf_generated_at")
+  pdfSource      String?   @map("pdf_source")
+  machineFinalized Boolean @default(false) @map("machine_finalized")
+
+  notes     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
+
+  // Phase 1 Toggles
+  tickCfMombasa     Boolean @default(true)  @map("tick_cf_mombasa")
+  tickClearance     Boolean @default(false) @map("tick_clearance")
+  tickCfKampala     Boolean @default(false) @map("tick_cf_kampala")
+  
+  // Phase 2 Toggles
+  includePhaseTwo   Boolean @default(false) @map("include_phase_two")
+  includeTaxToUra   Boolean @default(true)  @map("include_tax_to_ura")
+  dutyFree          Boolean @default(false) @map("duty_free")
+
+  @@map("invoices")
+  @@index([userId])
+}
+
+model SalesUser {
+  id              Int       @id @default(autoincrement())
+  username        String    @unique
+  passwordHash    String    @map("password_hash")
+  passwordEnc     String?   @map("password_enc")
+  role            String    @default("user")
+  displayName     String?   @map("display_name")
+  email           String?
+  phone           String?
+  profileImageUrl String?   @map("profile_image_url")
+  isActive        Boolean   @default(true) @map("is_active")
+  lastSeenAt      DateTime? @map("last_seen_at")
+  desktopLastSeenAt DateTime? @map("desktop_last_seen_at")
+  webLastSeenAt     DateTime? @map("web_last_seen_at")
+  lastMachineName String?   @map("last_machine_name")
+  lastIp          String?   @map("last_ip")
+  lastAppVersion  String?   @map("last_app_version")
+  assignedMachineId   String? @map("assigned_machine_id")
+  assignedMachineName String? @map("assigned_machine_name")
+  blockedMachineId    String? @map("blocked_machine_id")
+  blockedMachineName  String? @map("blocked_machine_name")
+  machineLocked       Boolean   @default(false) @map("machine_locked")
+  lockMessage         String?   @map("lock_message")
+  bannedUntil         DateTime? @map("banned_until")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  invoices        Invoice[]
+  activities      ClientActivity[]
+  adminCommands   AdminCommand[]
+
+  @@map("sales_users")
+}
+
+model AdminCommand {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @map("user_id")
+  user        SalesUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  command     String
+  payload     Json?
+  status      String    @default("pending")
+  result      String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  processedAt DateTime? @map("processed_at")
+
+  @@index([userId, status])
+  @@map("admin_commands")
+}
+
+model ClientActivity {
+  id        Int       @id @default(autoincrement())
+  userId    Int       @map("user_id")
+  user      SalesUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action    String
+  metadata  Json?
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("client_activities")
+}
+
+model VehicleTaxRate {
+  id           Int     @id @default(autoincrement())
+  make         String
+  model        String
+  modelCode    String? @map("model_code")
+  bodyType     String? @map("body_type")
+  yearFrom     Int?    @map("year_from")
+  yearTo       Int?    @map("year_to")
+  engineSizeCC Int?    @map("engine_size_cc")
+  fuelType     String? @map("fuel_type")
+
+  serialNumber  String? @map("serial_number")
+  hscCode       String? @map("hsc_code")
+  countryOrigin String? @map("country_origin")
+  description   String?
+
+  fobValue           Float? @map("fob_value")
+  customsValue       Float? @map("customs_value")
+  importDuty         Float? @map("import_duty")
+  exciseDuty         Float? @map("excise_duty")
+  vat                Float? @map("vat")
+  infrastructureLevy Float? @map("infrastructure_levy")
+  environmentalLevy  Float? @map("environmental_levy")
+  withholdingTax     Float? @map("withholding_tax")
+  registrationFee    Float? @map("registration_fee")
+  totalTaxUGX        Float? @map("total_tax_ugx")
+
+  databaseMonth String   @map("database_month")
+  importedAt    DateTime @default(now()) @map("imported_at")
+  isActive      Boolean  @default(true) @map("is_active")
+
+  @@index([make, model])
+  @@index([databaseMonth])
+  @@map("vehicle_tax_rates")
+}
+
+model AdvertMedia {
+  id        Int      @id @default(autoincrement())
+  title     String
+  fileName  String
+  fileType  String
+  fileSize  Int
+  s3Key     String   @unique
+  url       String
+  folder    String   @default("general")
+  subFolder String?
+  createdAt DateTime @default(now())
+
+  @@map("advert_media")
+}
+
+/// Separate credentials for the web/mobile control panel (not sales machine accounts).
+model ControlAdmin {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  passwordHash String    @map("password_hash")
+  email        String
+  displayName  String?   @map("display_name")
+  isActive     Boolean   @default(true) @map("is_active")
+  lastSeenAt   DateTime? @map("last_seen_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  passwordResetTokens AdminPasswordResetToken[]
+
+  @@map("control_admins")
+}
+
+model AdminPasswordResetToken {
+  id        Int          @id @default(autoincrement())
+  adminId   Int          @map("admin_id")
+  admin     ControlAdmin @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  tokenHash String       @map("token_hash")
+  expiresAt DateTime     @map("expires_at")
+  usedAt    DateTime?    @map("used_at")
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  @@index([tokenHash])
+  @@index([adminId])
+  @@map("admin_password_reset_tokens")
+}

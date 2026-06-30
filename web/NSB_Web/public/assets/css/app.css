@@ -1,0 +1,47 @@
+/* Add to existing CSS */
+
+/* Tag Cloud Styling */
+.tags-box .btn-ecomm.active {
+    background-color: #343a40;
+    color: white;
+    border-color: #343a40;
+}
+
+.tags-box .btn-ecomm:hover {
+    background-color: #495057;
+    border-color: #495057;
+    color: white;
+}
+
+/* Tag count badge styling */
+.tags-box .badge {
+    font-size: 0.75em;
+    padding: 0.25em 0.5em;
+}
+
+/* Clear filter button styling */
+.btn-outline-danger.btn-sm {
+    font-size: 0.875rem;
+    padding: 0.375rem 0.75rem;
+}
+
+/* Tag cloud font size variations */
+.tags-box .btn-ecomm[style*="font-size: 12px"] {
+    font-weight: normal;
+}
+
+.tags-box .btn-ecomm[style*="font-size: 14px"] {
+    font-weight: 500;
+}
+
+.tags-box .btn-ecomm[style*="font-size: 16px"] {
+    font-weight: 600;
+}
+
+.tags-box .btn-ecomm[style*="font-size: 18px"] {
+    font-weight: 700;
+}
+
+.tags-box .btn-ecomm[style*="font-size: 20px"] {
+    font-weight: 800;
+}

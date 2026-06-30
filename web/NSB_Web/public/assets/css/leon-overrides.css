@@ -1,0 +1,132 @@
+/*
+ * Leonxlnx brand overrides — must load AFTER bootstrap.min.css and theme CSS.
+ * Replaces Bootstrap default blue (#0d6efd) with slate structural palette.
+ */
+
+:root,
+html.light-theme {
+  --bs-blue: #1e293b;
+  --bs-primary: #1e293b;
+  --bs-primary-rgb: 30, 41, 59;
+  --bs-info: #475569;
+  --bs-info-rgb: 71, 85, 105;
+  --bs-link-color: #1e293b;
+  --bs-link-hover-color: #0f172a;
+  --bs-focus-ring-color: rgba(30, 41, 59, 0.2);
+}
+
+/* Primary utilities */
+.text-primary,
+.link-primary {
+  color: #1e293b !important;
+}
+
+.bg-primary {
+  background-color: #1e293b !important;
+}
+
+.border-primary {
+  border-color: #1e293b !important;
+}
+
+/* Buttons */
+.btn-primary {
+  --bs-btn-bg: #1e293b;
+  --bs-btn-border-color: #1e293b;
+  --bs-btn-hover-bg: #0f172a;
+  --bs-btn-hover-border-color: #0f172a;
+  --bs-btn-active-bg: #0f172a;
+  --bs-btn-active-border-color: #0f172a;
+  --bs-btn-disabled-bg: #1e293b;
+  --bs-btn-disabled-border-color: #1e293b;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #1e293b;
+  --bs-btn-border-color: #1e293b;
+  --bs-btn-hover-bg: #1e293b;
+  --bs-btn-hover-border-color: #1e293b;
+  --bs-btn-active-bg: #0f172a;
+  --bs-btn-active-border-color: #0f172a;
+}
+
+/* Form focus rings */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: rgba(30, 41, 59, 0.45);
+  box-shadow: 0 0 0 0.2rem rgba(30, 41, 59, 0.15);
+}
+
+.form-check-input:checked {
+  background-color: #1e293b;
+  border-color: #1e293b;
+}
+
+/* Nav / pagination / dropdown active states */
+.nav-pills .nav-link.active,
+.page-item.active .page-link,
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #1e293b;
+}
+
+/* Dark theme tab fix */
+html.dark-theme .nav-primary.nav-tabs .nav-link.active {
+  border-color: #1e293b #1e293b rgb(255 255 255 / 24%);
+}
+
+/* Admin shell — kill any residual Bootstrap link blue */
+.admin-layout a:not(.btn):not(.nav-link):not(.dropdown-item) {
+  color: var(--admin-accent, #1e293b);
+}
+
+.admin-layout a:not(.btn):not(.nav-link):not(.dropdown-item):hover {
+  color: var(--brand-accent-dark, #0f172a);
+}
+
+.admin-layout .text-muted a:not(.btn) {
+  color: var(--admin-accent, #1e293b);
+}
+
+.admin-layout .form-control:focus,
+.admin-layout .form-select:focus {
+  border-color: var(--brand-accent, #1e293b);
+  box-shadow: 0 0 0 0.2rem rgba(30, 41, 59, 0.12);
+}
+
+.admin-layout .admin-table tbody a {
+  color: var(--admin-accent, #1e293b);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.admin-layout .admin-table tbody a:hover {
+  color: var(--brand-accent-dark, #0f172a);
+  text-decoration: underline;
+}
+
+/* Beat jumia-ui orange primary inside admin shell */
+.admin-layout .btn-primary {
+  background: #1e293b !important;
+  border-color: #1e293b !important;
+  color: #fff !important;
+}
+
+.admin-layout .btn-primary:hover,
+.admin-layout .btn-primary:focus {
+  background: #0f172a !important;
+  border-color: #0f172a !important;
+  color: #fff !important;
+}
+
+.admin-layout .btn-outline-primary {
+  color: #1e293b !important;
+  border-color: #1e293b !important;
+}
+
+.admin-layout .btn-outline-primary:hover {
+  background: #1e293b !important;
+  border-color: #1e293b !important;
+  color: #fff !important;
+}

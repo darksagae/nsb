@@ -1,0 +1,38 @@
+/**
+ * Home page mobile vs desktop hero — loaded LAST in <head> so legacy theme CSS
+ * cannot override bundled globals. Update ?v= on the <link> when this file changes.
+ * Primary visibility is also driven by html[data-home-hero] from layout.tsx (see globals.css).
+ */
+@media (max-width: 1023.98px) {
+  body.jumia-ui .home-page-mobile-only {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  body.jumia-ui .home-page-desktop-only {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  body.jumia-ui .home-page-mobile-only {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.jumia-ui .home-page-desktop-only {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+}

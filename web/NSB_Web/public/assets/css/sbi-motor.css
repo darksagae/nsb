@@ -1,0 +1,383 @@
+/*
+ * SBI Motor Japan style layout and UI
+ * Reference: https://sbimotor.com/en
+ */
+
+/* Pale slate + pale green palette (Leonxlnx structural) */
+:root {
+  --sbi-blue: #64748b;
+  --sbi-blue-dark: #1e293b;
+  --sbi-blue-light: #f1f5f9;
+  --sbi-green: #c9f4dd;
+  --sbi-green-dark: #4fa86a;
+  --sbi-green-light: #ecfff5;
+}
+
+/* Custom Valuta Solid font (add real files under public/assets/fonts/) */
+@font-face {
+  font-family: 'Valuta Solid';
+  src: url('../fonts/ValutaSolid.woff2') format('woff2'),
+       url('../fonts/ValutaSolid.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Top bar: tagline + Total Cars + Uganda time */
+.sbi-top-bar {
+  background: var(--sbi-blue-light);
+  color: #1e293b;
+  font-size: 0.8rem;
+}
+.sbi-tagline {
+  font-weight: 500;
+}
+.sbi-total-cars strong,
+.sbi-uganda-time strong {
+  color: #0f172a;
+}
+
+/* Header: normal flow under meta bar, pale blue main bar */
+.jumia-ui .top-header {
+  position: static;
+  top: auto;
+  background: var(--sbi-blue-light);
+}
+
+/* Lower navigation bar - left-aligned */
+.sbi-lower-nav {
+  background: #ffffff;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.sbi-lower-nav .navbar-collapse {
+  justify-content: flex-start;
+}
+.sbi-lower-nav .sbi-main-menu {
+  margin-right: auto;
+  margin-left: 0;
+}
+.sbi-lower-nav .nav-link {
+  font-family: 'Valuta Solid', 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: #222;
+}
+.sbi-lower-nav .nav-link:hover,
+.sbi-lower-nav .nav-link:focus {
+  color: var(--sbi-blue-dark);
+}
+.sbi-main-menu {
+  gap: 1.75rem;
+}
+
+@media (min-width: 1200px) {
+  /* Hide offcanvas container on desktop to avoid duplicated nav list */
+  .sbi-lower-nav .offcanvas {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* Footer SBI layout */
+.sbi-footer .sbi-footer-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #333;
+}
+.sbi-footer .footer-widget-6 .logo-img,
+.sbi-footer .sbi-footer-find-cars .form-select,
+.sbi-footer .sbi-footer-find-cars .form-control {
+  max-width: 100%;
+}
+.sbi-footer-find-cars .btn-primary {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+.sbi-footer-sitemap a {
+  color: #333;
+  text-decoration: none;
+}
+.sbi-footer-sitemap a:hover {
+  color: var(--sbi-blue-dark);
+  text-decoration: underline;
+}
+
+/* SBI hero: Search By Make | Hero */
+.sbi-hero-with-sidebars.section-padding {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.sbi-hero-with-sidebars .min-h-hero {
+  min-height: 220px;
+}
+@media (min-width: 992px) {
+  .sbi-hero-with-sidebars .min-h-hero {
+    min-height: 260px;
+  }
+}
+.sbi-hero-with-sidebars .hero-static-wrapper {
+  min-height: 220px;
+  background-color: #334155;
+  background-image: linear-gradient(135deg, #475569 0%, #1e293b 100%);
+}
+.sbi-hero-with-sidebars .hero-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.sbi-hero-with-sidebars .hero-buttons .btn {
+  border-radius: 9999px;
+}
+@media (max-width: 576px) {
+  .sbi-hero-with-sidebars .hero-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.8rem;
+  }
+  .sbi-hero-with-sidebars .hero-buttons .btn {
+    width: 200px !important;
+    max-width: 200px !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+/* Left stacked filters (sidebar under hero) */
+.sbi-left-filters {
+  font-size: 0.8rem;
+}
+.sbi-left-filters .sbi-filter-group + .sbi-filter-group {
+  border-top: 1px solid #e5e5e5;
+}
+.sbi-left-filters .sbi-filter-header {
+  background-color: #f7f7f7;
+}
+.sbi-left-filters .sbi-filter-body {
+  padding: 6px 8px 8px;
+}
+.sbi-left-filters .sbi-filter-item:hover {
+  background-color: #f5f5f5;
+}
+.sbi-left-filters .sbi-filter-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #333333;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.sbi-left-filters .sbi-filter-type:hover {
+  background-color: #f5f5f5;
+  text-decoration: none;
+}
+.sbi-left-filters .sbi-filter-type-icon {
+  font-size: 1.25rem;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+.sbi-left-filters .sbi-filter-pill {
+  display: block;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #333;
+}
+.sbi-left-filters .sbi-filter-pill:hover {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+/* Blue search bar below hero (matches hero gradient) */
+.sbi-compact-search-bar {
+  background-color: #334155;
+  background-image: linear-gradient(135deg, #475569 0%, #1e293b 100%);
+  color: #ffffff;
+  padding: 12px 0 14px;
+}
+.sbi-compact-search-bar .form-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.sbi-compact-search-bar .form-control,
+.sbi-compact-search-bar .form-select {
+  border-radius: 0;
+  border: 1px solid #ddd;
+}
+.sbi-compact-search-bar .form-control:focus,
+.sbi-compact-search-bar .form-select:focus {
+  border-color: #333;
+  box-shadow: none;
+}
+.sbi-compact-search-bar .form-check-input {
+  border-color: rgba(255,255,255,0.8);
+}
+.sbi-compact-search-bar .form-check-input:checked {
+  background-color: #333;
+  border-color: #333;
+}
+
+/* Search bar grid: 4 columns — Make+Type | Model+Steering | Price+Year | SEARCH+items match */
+.sbi-compact-search-bar .sbi-search-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 1rem 1.25rem;
+  align-items: end;
+}
+.sbi-compact-search-bar .sbi-search-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.sbi-compact-search-bar .sbi-search-col-action {
+  min-width: 120px;
+}
+.sbi-compact-search-bar .sbi-search-field .form-label + .form-control,
+.sbi-compact-search-bar .sbi-search-field .form-label + .form-select,
+.sbi-compact-search-bar .sbi-search-field .form-label + .d-flex {
+  margin-top: 2px;
+}
+@media (max-width: 991px) {
+  .sbi-compact-search-bar .sbi-search-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 575px) {
+  .sbi-compact-search-bar .sbi-search-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Search By Make section (home) - SBI style */
+.sbimotor-browse-make .list-group-item-action:hover {
+  background: #fff5eb;
+}
+.sbimotor-make-link:hover {
+  background: #f8f9fa;
+}
+
+/* Find the best cars form - SBI style */
+.sbimotor-find-cars h2 {
+  font-size: 1.5rem;
+  text-transform: none;
+  color: #1a1a2e;
+}
+
+/* Best Sellers by Type (browse by category) - SBI heading */
+.sbimotor-browse-category h2,
+.sbi-section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* Price band links in nav */
+.dropdown-large-menu .large-menu-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+.dropdown-large-menu a {
+  color: #333;
+  text-decoration: none;
+  padding: 0.2rem 0;
+  display: block;
+}
+.dropdown-large-menu a:hover {
+  color: var(--sbi-blue-dark);
+}
+
+/* Search and CTA buttons in header */
+.jumia-ui .header-search-wrap {
+  max-width: 720px;
+}
+.jumia-ui .header-search-wrap .form-control {
+  border-radius: 9999px 0 0 9999px;
+  background-color: #ffffff;
+  border-color: var(--sbi-blue);
+  padding-left: 1.25rem;
+}
+.jumia-ui .header-search-wrap .btn-search {
+  background: var(--sbi-blue);
+  color: #fff;
+  border: none;
+  border-radius: 0 9999px 9999px 0;
+  padding-inline: 1.4rem;
+}
+.jumia-ui .header-search-wrap .btn-search:hover {
+  background: var(--sbi-blue-dark);
+  color: #fff;
+}
+.jumia-ui .header-contact-btn {
+  background: var(--sbi-blue);
+  border-color: var(--sbi-blue);
+  color: #fff;
+  font-weight: 600;
+}
+.jumia-ui .header-contact-btn:hover {
+  background: var(--sbi-blue-dark);
+  border-color: var(--sbi-blue-dark);
+  color: #fff;
+}
+
+/* Header phone number style */
+.jumia-ui .header-phone {
+  font-family: 'Valuta Solid', 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #555;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Clearance section (right column: all cars from admin) */
+.sbi-clearance .sbi-clearance-card {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.sbi-clearance .sbi-clearance-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--sbi-blue) !important;
+}
+.sbi-clearance .sbi-clearance-img img {
+  object-fit: cover;
+}
+
+/* Best Sellers by Type (after Clearance) */
+.sbi-best-sellers-by-type .sbi-type-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sbi-best-sellers-by-type .sbi-type-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
+}
+.sbi-best-sellers-by-type .sbi-type-card .card-header {
+  font-size: 0.8rem;
+}
+.sbi-best-sellers-by-type .sbi-type-card-img {
+  transition: opacity 0.2s ease;
+}
+.sbi-best-sellers-by-type .sbi-type-card:hover .sbi-type-card-img {
+  opacity: 0.92;
+}
+.sbi-best-sellers-by-type .sbi-type-item:last-child {
+  border-bottom: none !important;
+}
+.sbi-best-sellers-by-type .sbi-type-card a:hover {
+  color: var(--sbi-blue, #1e293b) !important;
+}

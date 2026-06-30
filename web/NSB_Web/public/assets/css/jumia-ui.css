@@ -1,0 +1,207 @@
+/*
+ * Jumia-style eCommerce UI overrides
+ * Uses same stack: Bootstrap + CSS. No new frameworks.
+ */
+:root {
+  --jumia-orange: #f68b1e;
+  --jumia-orange-dark: #e67a0d;
+  --jumia-orange-light: #fff5eb;
+  --jumia-bg: #f5f5f5;
+  --jumia-card-bg: #ffffff;
+  --jumia-text: #333;
+  --jumia-text-muted: #75757a;
+}
+
+body.jumia-ui {
+  background-color: var(--jumia-bg) !important;
+  color: var(--jumia-text);
+}
+
+/* Header: Jumia-style with search bar */
+.jumia-ui .top-header {
+  background: var(--jumia-card-bg);
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.jumia-ui .header-search-wrap {
+  flex: 1;
+  max-width: 520px;
+  margin: 0 1rem;
+}
+.jumia-ui .header-search-wrap .form-control {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+}
+.jumia-ui .header-search-wrap .btn-search {
+  background: var(--jumia-orange);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+}
+.jumia-ui .header-search-wrap .btn-search:hover {
+  background: var(--jumia-orange-dark);
+  color: #fff;
+}
+.jumia-ui .top-header .primary-menu .navbar-nav a.nav-link {
+  color: var(--jumia-text);
+  border-bottom-color: transparent;
+}
+.jumia-ui .top-header .primary-menu .navbar-nav a.nav-link:hover {
+  color: var(--jumia-orange);
+}
+.jumia-ui .top-header .secondary-menu a.nav-link {
+  color: var(--jumia-text);
+}
+.jumia-ui .top-header .secondary-menu a.nav-link:hover {
+  color: var(--jumia-orange);
+}
+
+/* Category strip below header (Jumia-style horizontal links) */
+.jumia-ui .category-strip {
+  background: var(--jumia-card-bg);
+  border-bottom: 1px solid #eee;
+  padding: 0.5rem 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+.jumia-ui .category-strip a {
+  color: var(--jumia-text);
+  font-size: 13px;
+  padding: 0.35rem 0.75rem;
+  margin-right: 0.25rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+.jumia-ui .category-strip a:hover {
+  background: var(--jumia-orange-light);
+  color: var(--jumia-orange);
+}
+
+/* Section titles like Jumia */
+.jumia-ui .section-title-jumia {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--jumia-text);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+.jumia-ui .section-title-jumia::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--jumia-orange);
+  margin-top: 0.35rem;
+}
+
+/* Product/vehicle cards: Jumia-style */
+.jumia-ui .card {
+  background: var(--jumia-card-bg);
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+.jumia-ui .card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+.jumia-ui .card .card-body {
+  padding: 0.75rem 1rem;
+}
+.jumia-ui .card .product-name,
+.jumia-ui .card .card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--jumia-text);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.jumia-ui .card .product-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--jumia-orange);
+}
+.jumia-ui .card .product-price .text-decoration-line-through {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--jumia-text-muted);
+}
+
+/* Discount/status badge: Jumia orange style */
+.jumia-ui .ribban,
+.jumia-ui .badge-jumia {
+  background: var(--jumia-orange) !important;
+  color: #fff !important;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+}
+.jumia-ui .ribban-available,
+.jumia-ui .badge-available {
+  background: #1e293b !important;
+  color: #fff !important;
+}
+.jumia-ui .ribban-booked {
+  background: #6c757d !important;
+  color: #fff !important;
+}
+
+/* Buttons */
+.jumia-ui .btn-primary {
+  background: var(--jumia-orange);
+  border-color: var(--jumia-orange);
+}
+.jumia-ui .btn-primary:hover {
+  background: var(--jumia-orange-dark);
+  border-color: var(--jumia-orange-dark);
+}
+.jumia-ui .btn-outline-primary {
+  border-color: var(--jumia-orange);
+  color: var(--jumia-orange);
+}
+.jumia-ui .btn-outline-primary:hover {
+  background: var(--jumia-orange-light);
+  border-color: var(--jumia-orange);
+  color: var(--jumia-orange-dark);
+}
+
+/* Find cars form / search form */
+.jumia-ui .sbimotor-find-cars .btn-primary {
+  background: var(--jumia-orange);
+  border-color: var(--jumia-orange);
+}
+.jumia-ui .sbimotor-find-cars .form-select:focus,
+.jumia-ui .sbimotor-find-cars .form-control:focus {
+  border-color: var(--jumia-orange);
+  box-shadow: 0 0 0 0.2rem rgba(246, 139, 30, 0.25);
+}
+
+/* Hot deals / product sections background */
+.jumia-ui .hot-deals-section,
+.jumia-ui .section-padding {
+  background: var(--jumia-bg);
+}
+.jumia-ui .bg-section-1 { background: var(--jumia-bg) !important; }
+.jumia-ui .bg-section-2 { background: var(--jumia-card-bg) !important; }
+
+/* Footer strip */
+.jumia-ui .footer-strip a:hover {
+  color: var(--jumia-orange);
+}
+
+/* Links */
+.jumia-ui a:not(.nav-link):not(.btn):hover {
+  color: var(--jumia-orange);
+}

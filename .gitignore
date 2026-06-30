@@ -13,4 +13,9 @@ patches/
 ## Generated installation folder
 NSB_Motors_Installation/
 
+## Web tooling and build artifacts
+web/.agents/
+web/**/.next/
+web/**/node_modules/
+
 

@@ -1,0 +1,2579 @@
+/*
+Template Name: Shopingo - eCommerce HTML Template
+Author: codervent
+Email: codervent@gmail.com
+File: style.css
+*/
+
+/*
+Table of index
+*/
+
+/* 
+- General
+- Header
+- Navigation
+- Page content
+- breadcrumb
+- Footer
+- Utilitis
+- Back Button
+ */
+
+
+
+/* General */
+
+body {
+  color: #1e293b;
+  letter-spacing: 0.5px;
+  background-color: #dedede;
+  font-family: 'Raleway', sans-serif;
+}
+
+
+
+/* Background colors for carousel items */
+.bg-primary {
+  background: linear-gradient(135deg, #475569 0%, #1e293b 100%) !important;
+}
+
+.bg-red {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+}
+
+.bg-purple {
+  background: linear-gradient(135deg, #6f42c1 0%, #5a2d91 100%) !important;
+}
+
+.bg-yellow {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+}
+
+.bg-green {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+::placeholder {
+  opacity: 0.5 !important;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #08012d;
+}
+
+
+/* loader */
+
+.loader-wrapper {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-color: #ffffff;
+}
+
+
+
+/* Header */
+
+.top-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 65px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  padding: 0 1rem;
+  z-index: 20;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+}
+
+.top-header .primary-menu .navbar-nav a.nav-link {
+  color: #222121;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+
+.top-header .primary-menu .navbar-nav a.nav-link:hover,
+.top-header .primary-menu .navbar-nav a.nav-link:focus,
+.top-header .primary-menu .nav-link.active,
+.top-header .primary-menu .show>.nav-link {
+  background-color: #ffffff;
+}
+
+.top-header .primary-menu .dropdown-menu .dropdown-item.active,
+.top-header .primary-menu .dropdown-menu .dropdown-item:active {
+  color: #343434;
+  text-decoration: none;
+  background-color: #f1f0f0
+}
+
+
+.top-header .secondary-menu.navbar-nav a.nav-link {
+  color: #222121;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-right: 0.6rem;
+  padding-left: 0.6rem
+}
+
+
+.top-header .navbar .dropdown-menu {
+  border: 0;
+  border-radius: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.top-header .secondary-menu .cart-badge {
+  position: absolute;
+  top: 6px;
+  right: 0px;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff2c2c;
+}
+
+
+@-webkit-keyframes animdropdown {
+  from {
+    -webkit-transform: translate3d(0, 6px, 0);
+    transform: translate3d(0, 6px, 0);
+    opacity: 0
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+}
+
+@keyframes animdropdown {
+  from {
+    -webkit-transform: translate3d(0, 6px, 0);
+    transform: translate3d(0, 6px, 0);
+    opacity: 0
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+  }
+}
+
+
+/* Navigation */
+
+.primary-menu {
+  background-color: #ffffff;
+}
+
+.primary-menu.offcanvas-body {
+  padding: 0rem 0rem;
+}
+
+.offcanvas-header {
+  height: 65px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.offcanvas-start {
+  width: 280px;
+}
+
+.top-header .primary-menu .dropdown-large-menu {
+  width: auto;
+  padding: 0.5rem;
+}
+
+.top-header .primary-menu .dropdown-large-menu .large-menu-title {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0.25rem 1rem;
+}
+
+.top-header .primary-menu .dropdown-large-menu ul li a {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+
+@media all and (min-width: 1200px) {
+
+
+  .top-header .primary-menu .dropdown-large-menu {
+    width: 630px;
+    padding: 0.5rem;
+  }
+
+  .top-header .primary-menu .navbar-nav a.nav-link {
+    padding-right: 0.6rem;
+    padding-left: 0.6rem;
+    height: 65px;
+    border-bottom: 0px solid #e1e1e1;
+  }
+
+
+  .top-header .primary-menu .navbar-nav a.nav-link:hover,
+  .top-header .primary-menu .navbar-nav a.nav-link:focus,
+  .top-header .primary-menu .nav-link.active,
+  .top-header .primary-menu .show>.nav-link {
+    background-color: #f4f4f4;
+  }
+
+  .primary-menu {
+    background-color: rgba(33, 37, 41, 0);
+  }
+
+  .primary-menu .navbar-nav .nav-item .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+    -webkit-animation: .6s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 animdropdown;
+    animation: .6s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 animdropdown
+  }
+
+  .primary-menu .navbar-nav .nav-item:hover>.dropdown-menu {
+    display: block;
+  }
+
+
+}
+
+
+.footer-widget-6 .logo-img {
+  width: 200px;
+}
+
+.top-header .logo-img {
+  width: 200px;
+}
+
+.dropdown-toggle-nocaret:after {
+  display: none
+}
+
+.mobile-menu-btn,
+.mobile-menu-btn:hover {
+  color: #464444;
+  font-size: 1.5rem;
+}
+
+
+
+/*Page content*/
+
+
+.main-carousel-img {
+  height: 500px;
+  object-fit: cover;
+}
+
+.thumbnail-img {
+  width: 130px;
+  height: 70px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 0;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.thumbnail-img.active-thumb {
+  border-color: #1e293b;
+}
+
+
+
+
+
+
+
+
+
+.page-content {
+  padding-top: 65px;
+}
+
+.product-tab-menu .nav-pills .nav-link {
+  color: #08012d;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #08012d;
+  margin: 0 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.product-tab-menu .nav-pills .nav-link.active,
+.product-tab-menu .nav-pills .show>.nav-link {
+  color: #ffffff;
+  background-color: #08012d;
+}
+
+
+.tabular-product .card,
+.product-thumbs .card,
+.product-grid .card {
+  border: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.44), 0 2px 8px 0 rgba(99, 99, 99, 0.33);
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+}
+
+.product-zoom-images .img-thumb-container img {
+  cursor: zoom-in;
+}
+
+.product-zoom-images img,
+.tabular-product .card img,
+.product-thumbs .card img,
+.product-grid .card img,
+.cartegory-box .card img {
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+  border-radius: 5px;
+}
+
+.product-options {
+  padding: 10px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
+  z-index: 5;
+  background-color: rgba(0, 173, 239, 0.65);
+}
+
+.tabular-product .card:hover .product-options,
+.product-thumbs .card:hover .product-options,
+.product-grid .card:hover .product-options {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+.similar-products .card {
+  cursor: pointer;
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+}
+
+
+.similar-products .card:hover {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.product-short-title {
+  color: #212529;
+  font-size: 18px;
+}
+
+.product-short-name {
+  color: #898989;
+  font-size: 16px;
+}
+
+.product-count {
+  color: #212529;
+  font-weight: 600;
+}
+
+.product-options a {
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  border-radius: 0;
+  background-color: #212529;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.btn-ecomm {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0;
+  z-index: 6;
+
+}
+
+.btn-ecomm:focus {
+  border: 1px solid #2f3338;
+  box-shadow: 0 0 0 .25rem rgba(33, 37, 41, 0.25)
+}
+
+
+
+.separator {
+  display: flex;
+  align-items: center;
+}
+
+.separator .line {
+  height: 1px;
+  flex: 1;
+  background-color: #dee2e6;
+}
+
+.separator h3 {
+  padding: 0 1.5rem;
+}
+
+.address-info .form-check-input,
+.filter-sidebar .form-check-input,
+.filter-sidebar .form-check-label {
+  cursor: pointer;
+}
+
+.filter-sidebar .product-number {
+  color: #b7b7b7;
+  margin-left: 7px;
+}
+
+.filter-sidebar .form-check-input[type=checkbox] {
+  border-radius: 0;
+}
+
+.address-info .form-check-input:checked,
+.filter-sidebar .form-check-input:checked {
+  background-color: #212529;
+  border-color: #212529;
+}
+
+.address-info .form-check-input:focus,
+.filter-sidebar .form-check-input:focus {
+  border-color: #212529;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(34, 38, 42, 0.0)
+}
+
+
+/* width */
+.filter-sidebar ::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.filter-sidebar ::-webkit-scrollbar-track {
+  background: #e9e9e9;
+}
+
+/* Handle */
+.filter-sidebar ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+}
+
+/* Handle on hover */
+.filter-sidebar ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+.filter-column .offcanvas-start {
+  width: 320px;
+}
+
+
+.filter-column .offcanvas {
+  z-index: 21;
+}
+
+
+
+@media (min-width: 1200px) {
+
+  .filter-column .offcanvas {
+    z-index: 19;
+  }
+
+}
+
+.filter-column .offcanvas-backdrop {
+  z-index: 20;
+}
+
+.btn-filter-mobile {
+  position: fixed;
+  top: 30%;
+  left: 0;
+  background-color: #212529;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 2;
+}
+
+
+.view-type .grid-type-3 {
+  background-color: #ffffff;
+  padding: 4px;
+  border: 1px solid #e1e2e3;
+  cursor: pointer;
+}
+
+.view-type .grid-type-3 span {
+  width: 7px;
+  height: 16px;
+  background-color: #cfcfcf;
+}
+
+.view-type .grid-type-3.active span {
+  background-color: #3e3d3d;
+}
+
+.product-pagination .page-link {
+  color: #4b5157;
+}
+
+.product-pagination .page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #212529;
+  border-color: #212529;
+}
+
+.product-pagination .page-link:focus {
+  color: #212529;
+  box-shadow: 0 0 0 .25rem rgba(33, 37, 41, 0.25)
+}
+
+.product-pagination .page-item:first-child .page-link {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0
+}
+
+.product-pagination .page-item:last-child .page-link {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 .25rem rgba(33, 37, 41, 0.25)
+}
+
+.ribban {
+  position: absolute;
+  top: 16px;
+  left: 5%;
+  padding: 2px 7px;
+  border-radius: 5px 0 5px 0;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #f50a3b;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.ribban-booked {
+  position: absolute;
+  top: 16px;
+  left: 5%;
+  padding: 2px 7px;
+  border-radius: 5px 0 5px 0;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #ff7b00;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.ribban-available {
+  position: absolute;
+  top: 16px;
+  left: 5%;
+  padding: 2px 7px;
+  border-radius: 5px 0 5px 0;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #009127;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.depth {
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%);
+}
+
+.brands .brand-box {
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+  background-color: #ffff;
+}
+
+@media all and (min-width: 1024px) {
+
+  .product-zoom-images img:hover,
+  .tabular-product .card:hover img,
+  .product-thumbs .card:hover img,
+  .product-grid .card:hover img,
+  .cartegory-box .card:hover img {
+    -webkit-transform: scale(1.08);
+    transform: scale(1.08);
+  }
+
+  .brands .brand-box:hover {
+    -webkit-transform: scale(1.08);
+    transform: scale(1.08);
+  }
+
+}
+
+
+
+.blog-cards .card,
+.cartegory-box .card {
+  border-radius: 0;
+  border: 0;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%);
+}
+
+
+.subscribe-banner {
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.542), rgba(0, 0, 0, 0.73)),
+    url('https://platform.cstatic-images.com/ad-creative/2ffa04dd-318a-46dd-b700-27f82ae0b460/Cars_Storefront_Hero_2560x1440_Updated.jpg');
+  background-position: center;
+  background-size: cover;
+  background-attachment: scroll;
+}
+
+
+
+.bubscribe-control {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.119);
+  border: 1px solid rgb(255 255 255 / 62%);
+}
+
+.bubscribe-control:focus {
+  color: #ffffff;
+  background-color: rgb(255 255 255 / 0%);
+  border-color: rgba(255, 255, 255, 0.71);
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(255, 255, 255, 0.25)
+}
+
+.bubscribe-control::placeholder {
+  color: #ffffff !important;
+}
+
+
+.bubscribe-button {
+  color: rgb(50, 46, 46);
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.bubscribe-button:focus {
+  border-color: rgba(255, 255, 255, 0.71);
+  box-shadow: 0 0 0 .25rem rgba(255, 255, 255, 0.25)
+}
+
+
+
+
+/* breadcrumb */
+
+.breadcrumb li a {
+  color: #636363;
+}
+
+.breadcrumb li.active {
+  color: #222121;
+}
+
+
+/* Footer */
+
+.footer-section .widget-link li {
+  margin-bottom: 0.3rem;
+}
+
+.footer-section .widget-link li a {
+  color: #636363;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+
+.footer-section .widget-link li a:hover {
+  color: #262424;
+  text-decoration: underline;
+}
+
+
+.footer-widget-6 {
+  color: #636363;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+
+.footer-widget-7 .widget-link li a {
+  text-transform: capitalize;
+}
+
+
+.footer-widget-9 .social-link a {
+  width: 40px;
+  height: 40px;
+  color: #1e293b;
+  background-color: rgb(255 255 255 / 0%);
+  border: 1px solid #1e293b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.footer-widget-9 .social-link a:hover {
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  background-color: #212529;
+}
+
+
+
+/* Utilitis*/
+
+
+.section-padding {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.bg-section-1 {
+  background-color: #ffffff;
+}
+
+.bg-section-2 {
+  background-color: #f9f9f9;
+}
+
+.bg-green {
+  background-color: #21ad61 !important;
+}
+
+.bg-pink {
+  background-color: #ed4264 !important;
+}
+
+.bg-skyblue {
+  background-color: #2ea5c2 !important;
+}
+
+.bg-skyblue-light {
+  background-color: #b8dde9 !important;
+}
+
+.bg-red-light {
+  background-color: #fdd9de !important;
+}
+
+.bg-purple {
+  background-color: #723da6 !important;
+}
+
+.bg-green-light {
+  background-color: #9fffd1 !important;
+}
+
+.bg-purple-light {
+  background-color: #e1c4ff !important;
+}
+
+.bg-yellow {
+  background-color: #fdc200 !important;
+}
+
+.bg-yellow-light {
+  background-color: #feffaa !important;
+}
+
+.bg-red {
+  background-color: #ff2c2c !important;
+}
+
+.bg-twitter {
+  background-color: #00acee !important;
+}
+
+.bg-facebook {
+  background-color: #3b5998 !important;
+}
+
+.bg-linkden {
+  background-color: #0072b1 !important;
+}
+
+.bg-youtube {
+  background-color: #e2251f !important;
+}
+
+.bg-pinterest {
+  background-color: #c8232c !important;
+}
+
+.text-purple {
+  color: #723da6 !important;
+}
+
+.text-orange {
+  color: #ff2c2c !important;
+}
+
+.text-brown {
+  color: #ce5334 !important;
+}
+
+.text-cyane {
+  color: #00FFFF !important;
+}
+
+.text-ten {
+  color: #5eff00 !important;
+}
+
+.text-pink {
+  color: #ff006f !important;
+}
+
+.ratings {
+  font-size: 13px;
+  ;
+}
+
+.width-content {
+  width: fit-content
+}
+
+.rating-number {
+  color: #212529;
+}
+
+.text-content {
+  color: #212529;
+}
+
+.size-chart div button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  color: #222121;
+  font-weight: 600;
+  background-color: #ffffff;
+}
+
+.size-chart div button:hover,
+.size-chart div button:focus {
+  color: #ef2424;
+  border: 1px solid #ef2424;
+}
+
+
+.more-colors .color-box {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  border: 1px solid #dee2e6;
+  border-radius: 0%;
+  color: #222121;
+  font-weight: 600;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+
+.product-share .btn-social {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border: 0px solid #dee2e6;
+  border-radius: 0%;
+  color: #ffffff;
+  font-weight: 600;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.height-1 {
+  position: relative;
+  scrollbar-width: thin;
+  height: 260px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.wishlist-close {
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 10px;
+  margin: 7px;
+}
+
+.wrap-modal-slider.open {
+  opacity: 1;
+}
+
+.wrap-modal-slider .slider-for .slick-slide {
+  margin: 0 0px
+}
+
+.wrap-modal-slider .slider-for .slick-list {
+
+  margin: 0 0px
+}
+
+.wrap-modal-slider .slider-nav .slick-slide {
+  margin: 0 10px
+}
+
+.wrap-modal-slider .slider-nav .slick-list {
+  margin: 0 -10px
+}
+
+.modal-close-button {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  border-radius: 0%;
+  opacity: 1;
+  z-index: 1;
+  box-shadow: 0 0 24px 2px rgb(0 0 0 / 20%);
+}
+
+
+.payment-method .nav-link {
+  color: #212529;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #dedede;
+  font-weight: 600;
+}
+
+.payment-method .nav-pills .nav-link.active,
+.payment-method .nav-pills .show>.nav-link {
+  color: #212529;
+  background-color: #ffffff;
+}
+
+.account-menu .list-group-item {
+  color: #212529;
+}
+
+.account-menu .list-group-item.active {
+  color: #ffffff;
+  background-color: #212529;
+  border-color: #212529;
+}
+
+/*Back Button */
+
+.back-to-top {
+  display: none;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 22px;
+  color: #fff;
+  position: fixed;
+  border-radius: 50%;
+  bottom: 20px;
+  right: 12px;
+  background-color: #212529;
+  z-index: 5;
+}
+
+.back-to-top:hover {
+  color: #fff;
+}
+
+
+
+/* CUSTOM STYLING START  */
+
+.product-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.vehicle-specs-table {
+  font-size: 14px;
+}
+
+.vehicle-specs-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.vehicle-specs-table td:first-child {
+  font-weight: 500;
+  color: #333;
+}
+
+.contact-section {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.contact-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.btn-whatsapp {
+  background-color: #25d366;
+  border-color: #25d366;
+  color: white;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1da851;
+  border-color: #1da851;
+  color: white;
+}
+
+.btn-call {
+  background-color: #d4af37;
+  border-color: #d4af37;
+  color: white;
+}
+
+.btn-call:hover {
+  background-color: #b8941f;
+  border-color: #b8941f;
+  color: white;
+}
+
+.specs-toggle {
+  cursor: pointer;
+  user-select: none;
+}
+
+.specs-content {
+  transition: all 0.3s ease;
+}
+
+.item-description {
+  color: #757575;
+}
+
+.top-categories {
+  border-radius: 10px;
+  background-color: #1e293b;
+  box-shadow: 0 4px 8px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%);
+  padding: 0 0 15px 0;
+  border-radius: 10px;
+}
+
+.card-img-top {
+  border-radius: 10px 10px 0 0;
+}
+
+.footer-btm {
+  background-color: #08012d;
+}
+
+.fw-bolds {
+  font-weight: 600 !important;
+  color: #1e293b;
+}
+
+/* Vehicle Card Image Styling - Now with proper aspect ratios from admin cropping */
+.card .card-img-top {
+  width: 100%;
+  height: 250px;
+  /* Fixed height for consistent card layout */
+  object-fit: cover;
+  /* Cover ensures no empty space - images are now properly cropped */
+  object-position: center;
+  /* Centers the image */
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.4s ease;
+}
+
+/* Ensure consistent card heights */
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card .product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Responsive image heights */
+@media (max-width: 768px) {
+  .card .card-img-top {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card .card-img-top {
+    height: 180px;
+  }
+}
+
+/* Hover effect for images */
+@media all and (min-width: 1024px) {
+  .card:hover .card-img-top {
+    transform: scale(1.05);
+  }
+}
+
+/* Ensure grid items have equal heights */
+.row-cols-1>*,
+.row-cols-2>*,
+.row-cols-3>*,
+.row-cols-4>*,
+.row-cols-5>*,
+.row-cols-6>* {
+  height: auto;
+}
+
+/* Additional styling for better card appearance */
+.card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Ensure product info spacing is consistent */
+.product-info {
+  padding: 0.5rem 0;
+}
+
+.product-name {
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-price {
+  margin-top: auto;
+}
+
+/* Special Product Section Styling */
+.special-product-section .card {
+  border: none;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  transition: all 0.3s ease;
+}
+
+.special-product-section .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.special-product-section .item-description {
+  border: none;
+  padding: 0.75rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #495057;
+}
+
+.special-product-section .item-description i {
+  width: 20px;
+  text-align: center;
+}
+
+.special-product-section .btn-ecomm {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.special-product-section .btn-ecomm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.special-product-section .card-body h3 {
+  color: #08012d;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+}
+
+/* Responsive adjustments for Special Product Section */
+@media (max-width: 768px) {
+  .special-product-section .card-body h3 {
+    font-size: 1.5rem;
+  }
+
+  .special-product-section .item-description {
+    font-size: 0.9rem;
+  }
+
+  .special-product-section .buttons {
+    flex-direction: column;
+  }
+
+  .special-product-section .btn-ecomm {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Brands Section Styling */
+.brands-section .brand-box {
+  background: white;
+  border: 1px solid #e9ecef !important;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.brands-section .brand-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--secondary-color) !important;
+}
+
+.brands-section .brand-box img {
+  max-height: 50px;
+  max-width: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.brands-section .brand-box:hover img {
+  transform: scale(1.1);
+}
+
+.brands-section .brand-box a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.brands-section .brand-box a:hover {
+  text-decoration: none;
+}
+
+/* Responsive adjustments for Brands Section */
+@media (max-width: 768px) {
+  .brands-section .brand-box {
+    min-height: 60px;
+  }
+
+  .brands-section .brand-box img {
+    max-height: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .brands-section .brand-box {
+    min-height: 50px;
+  }
+
+  .brands-section .brand-box img {
+    max-height: 35px;
+  }
+}
+
+/* Blog Section Styling */
+.blog-section .card {
+  border: none;
+  background: white;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-section .card:hover {
+  transform: none;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%);
+}
+
+.blog-section .card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0;
+  transition: none;
+}
+
+.blog-section .card:hover .card-img-top {
+  transform: none;
+}
+
+.blog-section .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.blog-section .posted-by,
+.blog-section .posted-date {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.blog-section .posted-by i,
+.blog-section .posted-date i {
+  color: var(--secondary-color);
+}
+
+.blog-section .card-title {
+  color: #08012d;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.blog-section .card-body p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.blog-section .btn-ecomm {
+  align-self: flex-start;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border-width: 2px;
+}
+
+.blog-section .btn-ecomm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments for Blog Section */
+@media (max-width: 768px) {
+  .blog-section .card-img-top {
+    height: 180px;
+  }
+
+  .blog-section .card-body {
+    padding: 1rem;
+  }
+
+  .blog-section .card-title {
+    font-size: 1.1rem;
+  }
+
+  .blog-section .posted-by,
+  .blog-section .posted-date {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .blog-section .card-img-top {
+    height: 160px;
+  }
+
+  .blog-section .card-body {
+    padding: 0.75rem;
+  }
+
+  .blog-section .card-title {
+    font-size: 1rem;
+  }
+}
+
+/* Category Slider Section Styling */
+.cartegory-slider .cartegory-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.cartegory-slider .card {
+  border: none;
+  background: white;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cartegory-slider .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.cartegory-slider .card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0;
+  transition: transform 0.3s ease;
+}
+
+.cartegory-slider .card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.cartegory-slider .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.cartegory-slider .cartegory-name {
+  color: #08012d;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.cartegory-slider .product-number {
+  color: var(--secondary-color);
+  font-size: 1rem;
+}
+
+.cartegory-slider a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cartegory-slider a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Responsive adjustments for Category Slider */
+@media (max-width: 768px) {
+  .cartegory-slider .cartegory-box {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .cartegory-slider .card-img-top {
+    height: 150px;
+  }
+
+  .cartegory-slider .card-body {
+    padding: 1rem;
+  }
+
+  .cartegory-slider .cartegory-name {
+    font-size: 1.1rem;
+  }
+
+  .cartegory-slider .product-number {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .cartegory-slider .cartegory-box {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .cartegory-slider .card-img-top {
+    height: 120px;
+  }
+
+  .cartegory-slider .card-body {
+    padding: 0.75rem;
+  }
+
+  .cartegory-slider .cartegory-name {
+    font-size: 1rem;
+  }
+
+  .cartegory-slider .product-number {
+    font-size: 0.8rem;
+  }
+}
+
+/* Blog Post Image Zoom Fix */
+/* Prevent images in blog posts from scaling when users zoom in */
+.blog-content img {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+}
+
+/* Ensure blog post images maintain their original size when zooming */
+.blog-content img[src*="blog"] {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Override any Bootstrap responsive classes for blog post images */
+.blog-content .img-fluid {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Ensure blog post images don't get constrained by container width */
+.blog-content figure img,
+.blog-content p img {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Additional rules for different image scenarios in blog posts */
+.blog-content .card-img-top,
+.blog-content .card-img,
+.blog-content .card-img-bottom {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Override any container constraints for blog post images */
+.blog-content .container img,
+.blog-content .row img,
+.blog-content .col img {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Ensure images in blog content maintain aspect ratio while preventing unwanted scaling */
+.blog-content img {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+  transform: none !important;
+}
+
+/* Final override for any remaining responsive image issues in blog posts */
+.blog-content * img {
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Fix position of blog post images - prevent any motion */
+.blog-content img {
+  position: static !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  perspective: none !important;
+  transform-style: flat !important;
+}
+
+/* Prevent any hover effects or transitions on blog post images */
+.blog-content img:hover,
+.blog-content img:focus,
+.blog-content img:active {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Disable any JavaScript-based animations or effects on blog post images */
+.blog-content img {
+  pointer-events: auto !important;
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+}
+
+/* Completely disable all motion and animation properties for blog post images */
+.blog-content img {
+  /* Disable all CSS animations */
+  animation: none !important;
+  animation-name: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  animation-direction: normal !important;
+  animation-fill-mode: none !important;
+  animation-play-state: paused !important;
+  animation-timing-function: ease !important;
+
+  /* Disable all transitions */
+  transition: none !important;
+  transition-property: none !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  transition-timing-function: ease !important;
+
+  /* Disable all transforms */
+  transform: none !important;
+  transform-origin: center !important;
+  transform-style: flat !important;
+
+  /* Disable 3D effects */
+  perspective: none !important;
+  perspective-origin: center !important;
+  backface-visibility: visible !important;
+
+  /* Disable GPU acceleration that might cause motion */
+  will-change: auto !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+
+  /* Ensure static positioning */
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: auto !important;
+}
+
+/* SPECIFICALLY OVERRIDE HOVER SCALE EFFECTS FOR BLOG POST IMAGES */
+/* Override the general hover scale effects */
+.blog-content .card:hover img,
+.blog-content img:hover,
+.blog-content .card-img-top:hover,
+.blog-content .card:hover .card-img-top {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+}
+
+/* Override any card hover effects that might affect blog images */
+.blog-content .card:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+}
+
+/* Ensure blog post images never scale on hover */
+.blog-content * img:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+}
+
+/* COMPREHENSIVE BLOG POST HOVER EFFECT DISABLING */
+/* Disable all hover effects for blog post cards and images */
+.card .card-img-top:hover,
+.card:hover .card-img-top,
+.blog-posts-listing .card:hover .card-img-top,
+.blog-posts-listing .card-img-top:hover,
+.blog-posts-listing .card:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Disable hover effects for any images in blog-related containers */
+.blog-posts-listing img:hover,
+.blog-posts-listing .card:hover img,
+.blog-posts-listing .card-img-top:hover,
+.blog-posts-listing .card:hover .card-img-top {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Override any existing hover effects that might affect blog images */
+.blog-posts-listing * img:hover,
+.blog-posts-listing * .card:hover img,
+.blog-posts-listing * .card-img-top:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* BLOG POST IMAGE HOVER DISABLING ONLY */
+/* Only disable hover effects for blog post images, not all images */
+
+/* SPECIFIC BLOG POST IMAGE HOVER DISABLING ONLY */
+/* Only disable hover effects for blog post images, not all images */
+.blog-posts-listing .card-img-top:hover,
+.blog-posts-listing .card:hover .card-img-top,
+.blog-posts-listing img:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Disable hover effects for blog post content images only */
+.blog-content img:hover,
+.blog-content .card:hover img,
+.blog-content .card-img-top:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* SMALL ZOOM-IN ANIMATION FOR ALL IMAGES EXCEPT BLOG POSTS */
+/* Add subtle zoom effect to images on hover, excluding blog post images */
+img:not(.blog-content img):not(.blog-posts-listing img):hover {
+  transform: scale(1.05) !important;
+  -webkit-transform: scale(1.05) !important;
+  -moz-transform: scale(1.05) !important;
+  -ms-transform: scale(1.05) !important;
+  -o-transform: scale(1.05) !important;
+  transition: transform 0.3s ease !important;
+  -webkit-transition: transform 0.3s ease !important;
+  -moz-transition: transform 0.3s ease !important;
+  -ms-transition: transform 0.3s ease !important;
+  -o-transition: transform 0.3s ease !important;
+}
+
+/* Ensure smooth transition for all images (except blog posts) */
+img:not(.blog-content img):not(.blog-posts-listing img) {
+  transition: transform 0.3s ease;
+  -webkit-transition: transform 0.3s ease;
+  -moz-transition: transform 0.3s ease;
+  -ms-transition: transform 0.3s ease;
+  -o-transition: transform 0.3s ease;
+}
+
+/* Override any existing hover effects to ensure blog post images never zoom */
+.blog-content img,
+.blog-posts-listing img,
+.blog-content img:hover,
+.blog-posts-listing img:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* AGGRESSIVE BLOG POST IMAGE ZOOM PREVENTION */
+/* Target blog post images specifically and prevent ALL zoom effects */
+.blog-posts-listing .card-img-top,
+.blog-posts-listing .card-img-top:hover,
+.blog-posts-listing .card:hover .card-img-top,
+.blog-posts-listing .card:hover,
+.blog-posts-listing .card {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Prevent any card hover effects on blog posts */
+.blog-posts-listing .card:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%) !important;
+}
+
+/* Override the existing blog section hover effects */
+.blog-section .card:hover .card-img-top,
+.blog-section .card-img-top:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+}
+
+/* Ensure blog post cards don't move on hover */
+.blog-section .card:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%) !important;
+}
+
+/* Disable all transitions for blog post images */
+.blog-posts-listing img,
+.blog-posts-listing .card-img-top,
+.blog-section .card-img-top {
+  transition: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
+
+/* SPECIFIC BLOG-POST PAGE ZOOM PREVENTION */
+/* Target the blog-post page specifically */
+body:has(.blog-posts-listing) .blog-posts-listing .card-img-top,
+body:has(.blog-posts-listing) .blog-posts-listing .card-img-top:hover,
+body:has(.blog-posts-listing) .blog-posts-listing .card:hover .card-img-top,
+body:has(.blog-posts-listing) .blog-posts-listing .card:hover,
+body:has(.blog-posts-listing) .blog-posts-listing .card {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Additional targeting for blog-post page */
+.blog-post .blog-posts-listing .card-img-top,
+.blog-post .blog-posts-listing .card-img-top:hover,
+.blog-post .blog-posts-listing .card:hover .card-img-top,
+.blog-post .blog-posts-listing .card:hover,
+.blog-post .blog-posts-listing .card {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Ensure blog-post page cards don't move */
+.blog-post .blog-posts-listing .card:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%) !important;
+}
+
+/* ULTIMATE BLOG POST ZOOM PREVENTION - OVERRIDE ALL EXISTING RULES */
+/* Override the existing blog-section hover effects completely */
+.blog-section .card:hover,
+.blog-section .card:hover .card-img-top,
+.blog-section .card-img-top:hover,
+.blog-posts-listing .card:hover,
+.blog-posts-listing .card:hover .card-img-top,
+.blog-posts-listing .card-img-top:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Override the specific scale(1.05) effect */
+.blog-section .card:hover .card-img-top {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  scale: none !important;
+}
+
+/* Override the translateY(-5px) effect */
+.blog-section .card:hover {
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 55%), 0 2px 6px 0 rgb(206 206 238 / 44%) !important;
+}
+
+/* Disable all transitions for blog section images */
+.blog-section .card-img-top,
+.blog-section .card-img-top:hover,
+.blog-section .card:hover .card-img-top {
+  transition: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
+
+/* Hero Carousel Styling */
+.slider-section {
+  width: 100%;
+  margin-bottom: 2rem;
+  position: relative;
+  min-height: 400px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.slider-section .carousel {
+  width: 100%;
+  min-height: 400px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Mobile-specific carousel visibility */
+@media (max-width: 991px) {
+  .slider-section {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+    margin-bottom: 3rem;
+  }
+  
+  .slider-section .carousel {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .slider-section .carousel-inner {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  .slider-section .carousel-item {
+    display: block !important;
+    visibility: visible !important;
+    min-height: 300px;
+  }
+  
+  .slider-section .carousel-item.active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+.slider-section .carousel-item {
+  min-height: 400px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Enhanced Carousel Transitions */
+.carousel-item {
+  transition: transform 0.6s ease-in-out !important;
+}
+
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  transition: transform 0.6s ease-in-out !important;
+}
+
+.carousel-item-next.carousel-item-start,
+.carousel-item-prev.carousel-item-end {
+  transform: translateX(0) !important;
+}
+
+.carousel-item-next,
+.active.carousel-item-end {
+  transform: translateX(100%) !important;
+}
+
+.carousel-item-prev,
+.active.carousel-item-start {
+  transform: translateX(-100%) !important;
+}
+
+/* Enhanced carousel controls */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 30px;
+  height: 30px;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Enhanced carousel indicators */
+.carousel-indicators {
+  bottom: 20px;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicators .active {
+  background-color: #fff;
+  transform: scale(1.2);
+}
+
+/* Hero content animations */
+.hero-content {
+  animation: slideInFromLeft 0.8s ease-out;
+}
+
+.hero-image {
+  animation: slideInFromRight 0.8s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slider-section .carousel-item.active {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.slider-section .carousel-item .row {
+  min-height: 400px;
+  align-items: center;
+  display: flex !important;
+  visibility: visible !important;
+}
+
+.slider-section .carousel-item img {
+  max-height: 300px;
+  object-fit: contain;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Hot Deals Section Styling */
+.hot-deals-section {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Mobile Hot Deals visibility */
+@media (max-width: 991px) {
+  .hot-deals-section {
+    margin-top: 2rem;
+    clear: both;
+    padding-top: 2rem;
+    min-height: 120px;
+  }
+  
+  .hot-deals-section .text-center {
+    display: block !important;
+    visibility: visible !important;
+    padding: 1rem 0;
+    min-height: 80px;
+  }
+  
+  .hot-deals-section h3,
+  .hot-deals-section p {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 10;
+    line-height: 1.4;
+  }
+  
+  .hot-deals-section h3 {
+    margin-bottom: 0.5rem !important;
+    font-size: 1.5rem !important;
+  }
+  
+  .hot-deals-section p {
+    margin-bottom: 1rem !important;
+  }
+}
+
+.hot-deals-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.hot-deals-content.loaded {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Prevent layout shift during loading */
+.product-thumbs {
+  min-height: 300px;
+}
+
+/* Loading animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hot-deals-section {
+  animation: fadeInUp 0.6s ease;
+}
+
+/* Hot Deals Arrow Pointer Styling */
+.hot-deals-section .slick-prev,
+.hot-deals-section .slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hot-deals-section .slick-prev:hover,
+.hot-deals-section .slick-next:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hot-deals-section .slick-prev {
+  left: 6px;
+  z-index: 100;
+}
+
+.hot-deals-section .slick-next {
+  right: 6px;
+  z-index: 100;
+}
+
+/* Custom SVG Arrow Icon Styling */
+.hot-deals-section .custom-arrow-icon {
+  width: 20px;
+  height: 20px;
+  color: #1e293b;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.hot-deals-section .slick-prev:hover .custom-arrow-icon,
+.hot-deals-section .slick-next:hover .custom-arrow-icon {
+  color: #0f172a;
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Enhanced arrow button styling */
+.hot-deals-section .slick-prev,
+.hot-deals-section .slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.hot-deals-section .slick-prev:hover,
+.hot-deals-section .slick-next:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(240, 248, 255, 0.95) 100%);
+  border-color: rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.15);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Responsive adjustments for Hot Deals arrows */
+@media (max-width: 768px) {
+
+  .hot-deals-section .slick-prev,
+  .hot-deals-section .slick-next {
+    width: 35px;
+    height: 35px;
+  }
+
+  .hot-deals-section .custom-arrow-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hot-deals-section .slick-prev {
+    left: 6px;
+  }
+
+  .hot-deals-section .slick-next {
+    right: 6px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .hot-deals-section .slick-prev,
+  .hot-deals-section .slick-next {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hot-deals-section .custom-arrow-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hot-deals-section .slick-prev {
+    left: 6px;
+  }
+
+  .hot-deals-section .slick-next {
+    right: 6px;
+  }
+}
+
+/* Blog Post Pages - White Background */
+.blog-post .page-content,
+.blog-read .page-content {
+  background-color: #ffffff;
+}
+
+.blog-post .section-padding,
+.blog-read .section-padding {
+  background-color: #ffffff;
+}
+
+/* Ensure blog post cards have white background */
+.blog-post .card,
+.blog-read .card {
+  background-color: #ffffff;
+}
+
+/* Blog post content area */
+.blog-post .blog-posts-listing,
+.blog-read .blog-single-post {
+  background-color: #ffffff;
+}
+
+/* Blog sidebar */
+.blog-post .blog-sidebar,
+.blog-read .blog-sidebar {
+  background-color: #ffffff;
+}
+
+/* Ensure the entire blog post page has white background */
+body.blog-post,
+body.blog-read {
+  background-color: #ffffff;
+}
+
+/* Blog post page specific styling */
+.blog-post .page-content,
+.blog-read .page-content {
+  background-color: #ffffff !important;
+}
+
+.blog-post .section-padding,
+.blog-read .section-padding {
+  background-color: #ffffff !important;
+}
+
+/* Override default Slick theme arrows to use custom SVG */
+.slick-prev:before,
+.slick-next:before {
+  display: none !important;
+}
+
+/* Ensure custom arrows are visible */
+.slick-prev .custom-arrow-icon,
+.slick-next .custom-arrow-icon {
+  display: block !important;
+}
+
+/* Global Custom Arrow Icon Styling for all sliders */
+.custom-arrow-icon {
+  width: 20px;
+  height: 20px;
+  color: #1e293b;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.slick-prev:hover .custom-arrow-icon,
+.slick-next:hover .custom-arrow-icon {
+  color: #0f172a;
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Enhanced arrow button styling */
+.slick-prev,
+.slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(240, 248, 255, 0.95) 100%);
+  border-color: rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.15);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Hot Deals Section Specific Styling */
+.hot-deals-section .slick-prev,
+.hot-deals-section .slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.hot-deals-section .slick-prev:hover,
+.hot-deals-section .slick-next:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(240, 248, 255, 0.95) 100%);
+  border-color: rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.15);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hot-deals-section .slick-prev {
+  left: 6px;
+}
+
+.hot-deals-section .slick-next {
+  right: 6px;
+}
+
+.hot-deals-section .custom-arrow-icon {
+  width: 20px;
+  height: 20px;
+  color: #1e293b;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.hot-deals-section .slick-prev:hover .custom-arrow-icon,
+.hot-deals-section .slick-next:hover .custom-arrow-icon {
+  color: #0f172a;
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "invoices" ADD COLUMN IF NOT EXISTS "machine_finalized" BOOLEAN NOT NULL DEFAULT false;
