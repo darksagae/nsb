@@ -27,7 +27,13 @@ export async function POST(request: NextRequest) {
 
     // Email reset — mobile control panel account (ControlAdmin) only.
     if (source === 'control_panel') {
-      await ensureControlAdminFromEnv();
+      const bootstrapped = await ensureControlAdminFromEnv();
+      if (!bootstrapped) {
+        return NextResponse.json(
+          { error: 'Control panel is not configured on the server' },
+          { status: 503 },
+        );
+      }
 
       const result = await sendControlAdminPasswordReset(username);
       if (!result.ok) {
