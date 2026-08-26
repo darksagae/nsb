@@ -14,6 +14,7 @@ type AccountUser = {
   role: string;
   isActive: boolean;
   online: boolean;
+  securityQuestion: string | null;
   lastSeenAt: string | null;
   invoiceCount: number;
   lastActivity: { action: string; createdAt: string } | null;
@@ -35,7 +36,9 @@ export function AccountsPanel() {
   const [error, setError] = useState<string | null>(null);
   const [savingId, setSavingId] = useState<number | null>(null);
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
-  const [drafts, setDrafts] = useState<Record<number, { username: string; password: string }>>({});
+  const [drafts, setDrafts] = useState<
+    Record<number, { username: string; password: string; securityQuestion: string; securityAnswer: string }>
+  >({});
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -49,11 +52,16 @@ export function AccountsPanel() {
       const data = await res.json();
       const list: AccountUser[] = data.users ?? [];
       setUsers(list);
-      const next: Record<number, { username: string; password: string }> = {};
+      const next: Record<
+        number,
+        { username: string; password: string; securityQuestion: string; securityAnswer: string }
+      > = {};
       for (const u of list) {
         next[u.id] = {
           username: u.username,
           password: u.password ?? '',
+          securityQuestion: u.securityQuestion ?? '',
+          securityAnswer: '',
         };
       }
       setDrafts(next);
@@ -74,7 +82,11 @@ export function AccountsPanel() {
     setRevealed((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const updateDraft = (id: number, field: 'username' | 'password', value: string) => {
+  const updateDraft = (
+    id: number,
+    field: 'username' | 'password' | 'securityQuestion' | 'securityAnswer',
+    value: string,
+  ) => {
     setDrafts((prev) => ({
       ...prev,
       [id]: { ...prev[id], [field]: value },
@@ -94,6 +106,14 @@ export function AccountsPanel() {
       }
       if (draft.password && draft.password !== (user.password ?? '')) {
         body.password = draft.password;
+      }
+      if (draft.securityAnswer.trim()) {
+        // A new answer requires a question (existing or freshly typed).
+        body.securityQuestion = draft.securityQuestion.trim() || user.securityQuestion || '';
+        body.securityAnswer = draft.securityAnswer.trim();
+      } else if (draft.securityQuestion.trim() !== (user.securityQuestion ?? '')) {
+        setError('Enter a new answer whenever you change the security question');
+        return;
       }
 
       if (Object.keys(body).length === 0) {
@@ -287,6 +307,33 @@ export function AccountsPanel() {
                         Legacy account — set password to store for admin view
                       </div>
                     )}
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="leon-section-label d-block mb-1">
+                      Security question{' '}
+                      <span className="text-muted fw-normal">
+                        {user.securityQuestion ? '(set — self-reset enabled)' : '(not set)'}
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control form-control-sm font-mono leon-input mb-2"
+                      placeholder="e.g. When was NSB founded?"
+                      value={draft.securityQuestion}
+                      onChange={(e) => updateDraft(user.id, 'securityQuestion', e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      className="form-control form-control-sm font-mono leon-input"
+                      placeholder="Answer (leave blank to keep the current one)"
+                      value={draft.securityAnswer}
+                      onChange={(e) => updateDraft(user.id, 'securityAnswer', e.target.value)}
+                    />
+                    <div className="leon-amount-hint text-start mt-1">
+                      Lets this user reset their own password from the sales app by answering
+                      this instead of email.
+                    </div>
                   </div>
 
                   {user.lastActivity && (

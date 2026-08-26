@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { hashPassword } from '@/lib/auth';
 import { requireAdminApi, isUserOnline } from '@/lib/admin-auth';
 import { decryptPasswordPlain, encryptPasswordPlain } from '@/lib/password-vault';
+import { hashSecurityAnswer } from '@/lib/security-question';
 import { prisma } from '@/lib/db';
 
 function serializeUser(
@@ -14,6 +15,7 @@ function serializeUser(
     email: string | null;
     phone: string | null;
     isActive: boolean;
+    securityQuestion?: string | null;
     lastSeenAt: Date | null;
     assignedMachineId?: string | null;
     assignedMachineName?: string | null;
@@ -32,6 +34,7 @@ function serializeUser(
     phone: user.phone,
     role: user.role,
     isActive: user.isActive,
+    securityQuestion: user.securityQuestion ?? null,
     lastSeenAt: user.lastSeenAt?.toISOString() ?? null,
     online: isUserOnline(user.lastSeenAt),
     assignedMachineId: user.assignedMachineId,
@@ -100,6 +103,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Username already exists' }, { status: 409 });
     }
 
+    const securityQuestion = body.securityQuestion ? String(body.securityQuestion).trim() : null;
+    const securityAnswer = body.securityAnswer ? String(body.securityAnswer).trim() : null;
+
     const user = await prisma.salesUser.create({
       data: {
         username,
@@ -109,6 +115,9 @@ export async function POST(request: NextRequest) {
         displayName,
         email: body.email ? String(body.email).trim() || null : null,
         phone: body.phone ? String(body.phone).trim() || null : null,
+        securityQuestion: securityAnswer ? securityQuestion : null,
+        securityAnswerHash:
+          securityQuestion && securityAnswer ? hashSecurityAnswer(securityAnswer) : null,
       },
       include: { _count: { select: { invoices: true, activities: true } } },
     });

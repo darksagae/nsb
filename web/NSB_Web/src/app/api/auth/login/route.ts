@@ -163,6 +163,39 @@ export async function POST(request: NextRequest) {
     }
 
     let machineCheck = checkDesktopMachineAccess(user.assignedMachineId, machineId);
+
+    if (!machineCheck.ok && body.guestMode === true) {
+      // Correct credentials, different device, explicit guest request — issue a
+      // session without touching machine binding at all. This user's own
+      // assignedMachineId is left alone, and the borrowed machine's owner (if any)
+      // is never affected. The desktop client is responsible for never persisting
+      // this session or writing its data to the local database.
+      const token = createSessionToken({
+        userId: user.id,
+        username: user.username,
+        kind: 'sales',
+      });
+
+      await prisma.clientActivity.create({
+        data: {
+          userId: user.id,
+          action: 'guest_login',
+          metadata: {
+            source: 'sales_system',
+            machineId,
+            machineName,
+            ownMachineId: user.assignedMachineId,
+          },
+        },
+      });
+
+      return NextResponse.json({
+        token,
+        user: salesUserPayload(user),
+        guestSession: true,
+      });
+    }
+
     if (!machineCheck.ok && machineCheck.code === 'machine_not_bound' && activateDevice) {
       const bindResult = await bindUserMachine(user.id, machineId!, machineName);
       if (!bindResult.ok) {
@@ -210,6 +243,24 @@ export async function POST(request: NextRequest) {
     }
 
     if (!machineCheck.ok) {
+      if (machineCheck.code === 'wrong_machine') {
+        // Correct credentials, wrong device — worth a visible trail for admins,
+        // since it's the signature of someone trying this account on a machine
+        // that isn't theirs (e.g. a friend's PC).
+        await prisma.clientActivity.create({
+          data: {
+            userId: user.id,
+            action: 'foreign_machine_login_attempt',
+            metadata: {
+              source: 'sales_system',
+              attemptedMachineId: machineId,
+              attemptedMachineName: machineName,
+              ownMachineId: user.assignedMachineId,
+              ownMachineName: user.assignedMachineName,
+            },
+          },
+        });
+      }
       return NextResponse.json(
         {
           error:

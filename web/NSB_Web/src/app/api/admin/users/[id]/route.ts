@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { hashPassword } from '@/lib/auth';
 import { requireAdminApi, isUserOnline } from '@/lib/admin-auth';
 import { decryptPasswordPlain, encryptPasswordPlain } from '@/lib/password-vault';
+import { hashSecurityAnswer } from '@/lib/security-question';
 import { prisma } from '@/lib/db';
 
 type RouteParams = { params: Promise<{ id: string }> };
@@ -40,6 +41,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       phone: user.phone,
       role: user.role,
       isActive: user.isActive,
+      securityQuestion: user.securityQuestion,
       lastSeenAt: user.lastSeenAt?.toISOString() ?? null,
       online: isUserOnline(user.lastSeenAt),
       invoiceCount: user._count.invoices,
@@ -123,6 +125,27 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       data.assignedMachineName = null;
     }
 
+    if (body.securityQuestion != null || body.securityAnswer != null) {
+      const securityQuestion = String(body.securityQuestion ?? '').trim();
+      const securityAnswer = String(body.securityAnswer ?? '').trim();
+      if (!securityQuestion || !securityAnswer) {
+        return NextResponse.json(
+          { error: 'Both a security question and an answer are required' },
+          { status: 400 },
+        );
+      }
+      data.securityQuestion = securityQuestion;
+      data.securityAnswerHash = hashSecurityAnswer(securityAnswer);
+      data.securityFailedAttempts = 0;
+      data.securityLockedUntil = null;
+    }
+    if (body.clearSecurityQuestion === true) {
+      data.securityQuestion = null;
+      data.securityAnswerHash = null;
+      data.securityFailedAttempts = 0;
+      data.securityLockedUntil = null;
+    }
+
     if (Object.keys(data).length === 0) {
       return NextResponse.json({ error: 'No fields to update' }, { status: 400 });
     }
@@ -171,6 +194,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       phone: updated.phone,
       role: updated.role,
       isActive: updated.isActive,
+      securityQuestion: updated.securityQuestion,
       lastSeenAt: updated.lastSeenAt?.toISOString() ?? null,
       online: isUserOnline(updated.lastSeenAt),
       invoiceCount: updated._count.invoices,

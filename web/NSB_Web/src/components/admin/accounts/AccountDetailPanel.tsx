@@ -43,6 +43,7 @@ type DetailActivity = {
   id: number;
   action: string;
   createdAt: string;
+  metadata?: Record<string, unknown> | null;
 };
 
 function formatWhen(iso: string | null | undefined) {
@@ -366,12 +367,33 @@ export function AccountDetailPanel({ userId, displayName }: { userId: number; di
               <p className="text-muted small mb-0 font-mono">No activity recorded.</p>
             ) : (
               <ul className="list-unstyled mb-0">
-                {activities.map((a) => (
-                  <li key={a.id} className="d-flex justify-content-between gap-3 py-2 border-bottom border-light-subtle small">
-                    <span className="font-mono">{a.action.replace(/_/g, ' ')}</span>
-                    <span className="text-muted font-mono text-nowrap">{formatWhen(a.createdAt)}</span>
-                  </li>
-                ))}
+                {activities.map((a) => {
+                  const isForeignMachine = a.action === 'foreign_machine_login_attempt';
+                  const attemptedName = isForeignMachine
+                    ? (a.metadata?.attemptedMachineName as string | undefined) ??
+                      (a.metadata?.attemptedMachineId as string | undefined)
+                    : null;
+                  return (
+                    <li
+                      key={a.id}
+                      className="d-flex flex-column gap-1 py-2 border-bottom border-light-subtle small"
+                    >
+                      <div className="d-flex justify-content-between gap-3">
+                        <span
+                          className={`font-mono ${isForeignMachine ? 'text-danger fw-bold' : ''}`}
+                        >
+                          {a.action.replace(/_/g, ' ')}
+                        </span>
+                        <span className="text-muted font-mono text-nowrap">{formatWhen(a.createdAt)}</span>
+                      </div>
+                      {isForeignMachine && attemptedName && (
+                        <span className="text-muted font-mono" style={{ fontSize: '0.75rem' }}>
+                          Tried from: {attemptedName}
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>

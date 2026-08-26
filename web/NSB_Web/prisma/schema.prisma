@@ -228,6 +228,10 @@ model SalesUser {
   machineLocked       Boolean   @default(false) @map("machine_locked")
   lockMessage         String?   @map("lock_message")
   bannedUntil         DateTime? @map("banned_until")
+  securityQuestion       String?   @map("security_question")
+  securityAnswerHash     String?   @map("security_answer_hash")
+  securityFailedAttempts Int       @default(0) @map("security_failed_attempts")
+  securityLockedUntil    DateTime? @map("security_locked_until")
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
 
