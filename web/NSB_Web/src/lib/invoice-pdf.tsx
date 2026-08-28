@@ -1,3 +1,5 @@
+import path from 'path';
+
 import {
   Document,
   Page,
@@ -20,22 +22,22 @@ import {
   type InvoicePdfInput,
 } from '@/lib/invoice-pdf-calculations';
 
+// Fonts are read from disk, not fetched. Rendering pulled all four faces from
+// cdnjs on every cold start, which made generating an invoice depend on a third
+// party being reachable — and when it is not, the render fails or silently
+// comes out in a substitute face. These are byte-for-byte the same files, so
+// output is unchanged. Safe to touch the filesystem here: this module is
+// server-only, imported solely by invoice-pdf-server.ts.
+const FONT_DIR = path.join(process.cwd(), 'public/assets/pdf-fonts');
+
 Font.register({
   family: 'Roboto',
   fonts: [
+    { src: path.join(FONT_DIR, 'roboto-regular-webfont.ttf') },
+    { src: path.join(FONT_DIR, 'roboto-bold-webfont.ttf'), fontWeight: 'bold' },
+    { src: path.join(FONT_DIR, 'roboto-italic-webfont.ttf'), fontStyle: 'italic' },
     {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf',
-    },
-    {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',
-      fontWeight: 'bold',
-    },
-    {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf',
-      fontStyle: 'italic',
-    },
-    {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bolditalic-webfont.ttf',
+      src: path.join(FONT_DIR, 'roboto-bolditalic-webfont.ttf'),
       fontWeight: 'bold',
       fontStyle: 'italic',
     },
