@@ -161,6 +161,11 @@ const s = StyleSheet.create({
   },
   tdLast: { paddingVertical: 4, paddingHorizontal: 6, fontSize: 9, lineHeight: 1.17 },
   bodyCellRule: { borderRight: `${BW} solid ${C.border}` },
+  // The machine runs its grey header bars to the very edge of the box, with
+  // no side border; pull them out over mainBox's own rule to match.
+  headerBleed: { marginHorizontal: -1.4 },
+  phaseHeaderBleedLeft: { marginLeft: -1.4 },
+  phaseHeaderBleedRight: { marginRight: -1.4 },
   colSno: { width: COL.sno },
   colChassis: { width: COL.chassis },
   colDesc: { width: COL.desc },
@@ -203,17 +208,10 @@ const s = StyleSheet.create({
     paddingVertical: 0.75,
     paddingHorizontal: 2,
   },
-  phaseDoubleLine: {
-    flexDirection: 'row',
-    borderBottom: `${BW} solid ${C.border}`,
-    height: 4,
-  },
-  // No bottom border here: phaseTable already rules the block's bottom edge,
-  // and the two together drew a ~5px line where the machine has 2px.
-  phaseDoubleLineThin: {
-    flexDirection: 'row',
-    height: 2,
-  },
+  // Gap above the total rule, and the rule itself — both carried by real
+  // cells so the column borders stay continuous.
+  phaseGapBelow: { paddingBottom: 5 },
+  phaseRuleAbove: { borderTop: `${BW} solid ${C.border}`, paddingTop: 2 },
   // The machine leaves noticeably more air around the Phase 2 dividers.
   greyDivider: {
     borderTop: `${BW} solid ${C.greyDivider}`,
@@ -389,27 +387,25 @@ function Phase1BreakdownTable({ t }: { t: ReturnType<typeof computeInvoicePdfTot
         <Text style={s.phaseColUsd}>{fmtMoney(t.ttUsd)}</Text>
         <Text style={s.phaseColUgx}>{fmtMoney(t.ttUgx)}</Text>
       </View>
+      {/* The gap above the total rule is padding on the row before it, and the
+          rule itself is the total row's own borderTop. Spacer Views were used
+          here before, but their column borders did not render, breaking the
+          vertical rules the machine draws unbroken through this block. */}
       <View style={s.phaseTableRow}>
-        <Text style={[s.phaseColLabel, { paddingVertical: 2 }]}>
+        <Text style={[s.phaseColLabel, s.phaseGapBelow, { paddingTop: 2 }]}>
           Dollar Rate ({fmtMoney(t.phase1Rate)})
         </Text>
-        <Text style={s.phaseColUsd}> </Text>
-        <Text style={s.phaseColUgx}> </Text>
-      </View>
-      <View style={s.phaseDoubleLine}>
-        <View style={{ flex: 2, borderRight: `${BW} solid ${C.border}` }} />
-        <View style={{ flex: 1, borderRight: `${BW} solid ${C.border}` }} />
-        <View style={{ flex: 1 }} />
+        <Text style={[s.phaseColUsd, s.phaseGapBelow]}> </Text>
+        <Text style={[s.phaseColUgx, s.phaseGapBelow]}> </Text>
       </View>
       <View style={s.phaseTableRowLast}>
-        <Text style={[s.phaseColLabel, s.phaseBold]}>Phase 1 Total</Text>
-        <Text style={[s.phaseColUsd, s.phaseBold]}>{fmtMoney(t.phase1TotalUsd)}</Text>
-        <Text style={[s.phaseColUgx, s.phaseBold]}>{fmtMoney(t.phase1)}</Text>
-      </View>
-      <View style={s.phaseDoubleLineThin}>
-        <View style={{ flex: 2, borderRight: `${BW} solid ${C.border}` }} />
-        <View style={{ flex: 1, borderRight: `${BW} solid ${C.border}` }} />
-        <View style={{ flex: 1 }} />
+        <Text style={[s.phaseColLabel, s.phaseBold, s.phaseRuleAbove]}>Phase 1 Total</Text>
+        <Text style={[s.phaseColUsd, s.phaseBold, s.phaseRuleAbove]}>
+          {fmtMoney(t.phase1TotalUsd)}
+        </Text>
+        <Text style={[s.phaseColUgx, s.phaseBold, s.phaseRuleAbove]}>
+          {fmtMoney(t.phase1)}
+        </Text>
       </View>
     </View>
   );
@@ -590,7 +586,7 @@ export function buildInvoicePDF(invoice: InvoiceData, settings: Settings) {
           </View>
 
           <View style={s.tableTop}>
-            <View style={s.tableRow}>
+            <View style={[s.tableRow, s.headerBleed]}>
               <View style={s.colSno}><HeaderCell>SNO</HeaderCell></View>
               <View style={s.colChassis}><HeaderCell>CHASSIS NO</HeaderCell></View>
               <View style={s.colDesc}><HeaderCell>DESCRIPTION OF GOODS</HeaderCell></View>
@@ -630,7 +626,7 @@ export function buildInvoicePDF(invoice: InvoiceData, settings: Settings) {
 
             <View style={s.phaseSplit}>
               <View style={s.phaseCol}>
-                <View style={{ borderBottom: `${BW} solid ${C.border}` }}>
+                <View style={[{ borderBottom: `${BW} solid ${C.border}` }, s.phaseHeaderBleedLeft]}>
                   <Text style={s.th}>PHASE 1 BREAKDOWN</Text>
                 </View>
                 <View style={s.phaseInner}>
@@ -639,7 +635,7 @@ export function buildInvoicePDF(invoice: InvoiceData, settings: Settings) {
         </View>
 
               <View style={s.phaseColLast}>
-                <View style={{ borderBottom: `${BW} solid ${C.border}` }}>
+                <View style={[{ borderBottom: `${BW} solid ${C.border}` }, s.phaseHeaderBleedRight]}>
                   <Text style={s.thLast}>
                     {t.taxesUra > 0 ? 'PHASE 2 / REGISTRATION BREAKDOWN' : 'PHASE 2'}
             </Text>
