@@ -69,6 +69,10 @@ const s = StyleSheet.create({
   page: {
     fontFamily: 'Roboto',
     fontSize: 9,
+    // react-pdf defaults to ~1.5, which sets every line looser than the sales
+    // machine's output and pushed the invoice onto a second page. The machine
+    // renders roughly a 1.27 pitch.
+    lineHeight: 1.27,
     color: C.black,
     backgroundColor: C.white,
     padding: 8,
@@ -157,31 +161,36 @@ const s = StyleSheet.create({
     borderTop: `${BW} solid ${C.border}`,
     borderBottom: `${BW} solid ${C.border}`,
   },
+  // The machine rules the block top, above the total, and the bottom only —
+  // never between the individual breakdown rows.
   phaseTableRow: {
     flexDirection: 'row',
-    borderBottom: `${BW} solid ${C.border}`,
   },
   phaseTableRowLast: { flexDirection: 'row' },
+  // Row metrics tuned to the machine's line pitch (~10pt per breakdown row).
   phaseColLabel: {
     flex: 2,
     fontSize: 8.5,
-    paddingVertical: 2,
+    lineHeight: 1.1,
+    paddingVertical: 0.4,
     paddingHorizontal: 2,
     borderRight: `${BW} solid ${C.border}`,
   },
   phaseColUsd: {
     flex: 1,
     fontSize: 8.5,
+    lineHeight: 1.1,
     textAlign: 'center',
-    paddingVertical: 2,
+    paddingVertical: 0.4,
     paddingHorizontal: 2,
     borderRight: `${BW} solid ${C.border}`,
   },
   phaseColUgx: {
     flex: 1,
     fontSize: 8.5,
+    lineHeight: 1.1,
     textAlign: 'right',
-    paddingVertical: 2,
+    paddingVertical: 0.4,
     paddingHorizontal: 2,
   },
   phaseDoubleLine: {
@@ -210,7 +219,9 @@ const s = StyleSheet.create({
   phaseSplit: { flexDirection: 'row', borderTop: `${BW} solid ${C.border}` },
   phaseCol: { flex: 1, borderRight: `${BW} solid ${C.border}` },
   phaseColLast: { flex: 1 },
-  phaseInner: { padding: 6, justifyContent: 'flex-end', minHeight: 180 },
+  // Match the sales machine: the breakdown sits at the top of the column and
+  // the column's height is driven by its content, not a fixed minimum.
+  phaseInner: { padding: 6, justifyContent: 'flex-start' },
   phaseLine: { flexDirection: 'row', marginBottom: 2 },
   phaseLineLabel: { flex: 2, fontSize: 8.5 },
   phaseLineUsd: { flex: 1, fontSize: 8.5, textAlign: 'center' },
@@ -218,11 +229,17 @@ const s = StyleSheet.create({
   phaseBold: { fontWeight: 'bold' },
   phaseDivider: { borderTop: `${BW} solid ${C.black}`, marginVertical: 2 },
   phaseDividerThin: { borderTop: `${BW} solid ${C.black}`, marginTop: 4, marginBottom: 2 },
-  summaryLine: { flexDirection: 'row', marginBottom: 3 },
-  summaryLabel: { flex: 6, fontSize: 8.5 },
-  summaryValue: { flex: 4, fontSize: 8.5, textAlign: 'right' },
+  summaryLine: { flexDirection: 'row', marginBottom: 1 },
+  summaryLabel: { flex: 6, fontSize: 8.5, lineHeight: 1.1 },
+  summaryValue: { flex: 4, fontSize: 8.5, lineHeight: 1.1, textAlign: 'right' },
   summaryBold: { fontWeight: 'bold' },
-  amountWords: { fontSize: 11, fontWeight: 'bold', color: C.red, marginTop: 6 },
+  amountWords: {
+    fontSize: 11,
+    lineHeight: 1.15,
+    fontWeight: 'bold',
+    color: C.red,
+    marginTop: 4,
+  },
   footerBox: {
     marginTop: 8,
     padding: 12,
@@ -245,15 +262,27 @@ const s = StyleSheet.create({
   noticeBadge: { width: 110, marginBottom: 6 },
   noticeBar: { backgroundColor: C.black, paddingVertical: 2 },
   noticeText: { color: C.white, fontSize: 10, fontWeight: 'bold', textAlign: 'center' },
+  // The machine underlines only the width of the heading, and sets the bank
+  // lines on a ~14.7pt pitch rather than the looser default.
   bankTitle: {
     fontSize: 16,
+    lineHeight: 1.2,
     fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    paddingRight: 30,
     borderBottom: `${BW} solid ${C.border}`,
-    paddingBottom: 4,
-    marginBottom: 5,
+    paddingBottom: 5,
+    marginBottom: 4,
   },
-  bankLine: { fontSize: 12, marginBottom: 2 },
-  bankAccount: { fontSize: 13, fontWeight: 'bold', color: C.red, marginLeft: 15, marginBottom: 3 },
+  bankLine: { fontSize: 12, lineHeight: 1.1, marginBottom: 1 },
+  bankAccount: {
+    fontSize: 13,
+    lineHeight: 1.1,
+    fontWeight: 'bold',
+    color: C.red,
+    marginLeft: 15,
+    marginBottom: 1,
+  },
   footerTag: {
     marginTop: 5,
     backgroundColor: C.black,
