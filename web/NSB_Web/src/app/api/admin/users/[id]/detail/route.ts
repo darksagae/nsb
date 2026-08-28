@@ -61,6 +61,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         blockedMachineId: user.blockedMachineId,
         blockedMachineName: user.blockedMachineName,
         transferPending: user.assignedMachineId == null && user.blockedMachineId != null,
+        // The question itself is safe to show an admin; the answer is only
+        // ever stored hashed, so it is never returned.
+        securityQuestion: user.securityQuestion,
+        securityLockedUntil: user.securityLockedUntil?.toISOString() ?? null,
         lastSeenAt: user.lastSeenAt?.toISOString() ?? null,
         invoiceCount: user._count.invoices,
         activityCount: user._count.activities,

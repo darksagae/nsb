@@ -26,7 +26,13 @@ export async function POST(request: NextRequest) {
 
     const existing = await prisma.salesUser.findUnique({ where: { username } });
     if (existing) {
-      return NextResponse.json({ error: 'Username already exists' }, { status: 409 });
+      // Coded so the desktop can tell this apart from machine_taken: it means
+      // the cloud already holds this account under a different password, which
+      // the user has to reset rather than register again.
+      return NextResponse.json(
+        { error: 'Username already exists', code: 'username_taken' },
+        { status: 409 },
+      );
     }
 
     if (await machineIdTakenByOther(machineId)) {
