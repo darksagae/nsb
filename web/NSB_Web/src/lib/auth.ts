@@ -11,8 +11,6 @@ export type SessionPayload = {
   userId: number;
   username: string;
   kind: SessionKind;
-  /** Present only on anonymous guest sessions — scopes a guest to its own invoices. */
-  gsid?: string;
   exp: number;
 };
 
@@ -35,7 +33,6 @@ export function createSessionToken(payload: {
   userId: number;
   username: string;
   kind: SessionKind;
-  gsid?: string;
 }): string {
   const exp = Date.now() + 30 * 24 * 60 * 60 * 1000;
   const body = Buffer.from(JSON.stringify({ ...payload, exp })).toString('base64url');
@@ -61,7 +58,6 @@ export function verifySessionToken(token: string): SessionPayload | null {
       userId: payload.userId,
       username: payload.username,
       kind: payload.kind === 'admin' ? 'admin' : 'sales',
-      gsid: typeof payload.gsid === 'string' && payload.gsid ? payload.gsid : undefined,
       exp: payload.exp,
     };
   } catch {
@@ -94,17 +90,6 @@ export async function getSessionUser(request?: NextRequest) {
   const payload = await getSessionPayload(request);
   if (!payload || payload.kind !== 'sales') return null;
   return prisma.salesUser.findUnique({ where: { id: payload.userId } });
-}
-
-/**
- * Anonymous guest session id, if this request carries one. A guest token is a
- * normal `sales` token pointed at the shared guest user, plus this `gsid` claim
- * that isolates each guest session's invoices from every other guest's.
- */
-export async function getGuestSessionId(request?: NextRequest): Promise<string | null> {
-  const payload = await getSessionPayload(request);
-  if (!payload || payload.kind !== 'sales') return null;
-  return payload.gsid ?? null;
 }
 
 /** Control panel admin session (web + mobile control). */
