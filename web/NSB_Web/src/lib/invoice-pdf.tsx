@@ -286,14 +286,15 @@ const s = StyleSheet.create({
   footerTag: {
     marginTop: 5,
     backgroundColor: C.black,
-    padding: 8,
+    paddingVertical: 11,
+    paddingHorizontal: 8,
     textAlign: 'center',
   },
+  // The machine sets this banner in regular weight, not bold italic.
   footerTagText: {
     color: C.white,
     fontSize: 17,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
+    lineHeight: 1.2,
   },
 });
 
