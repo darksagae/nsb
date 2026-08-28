@@ -54,7 +54,7 @@ const C = {
   border: '#000000',
 };
 
-const BW = 1;
+const BW = 0.9; // renders a 2px rule at 150dpi, matching the machine's
 /** sales_system goods table flex ratios (0.8 + 1.8 + 5.2 + 0.8 + 2.0 = 10.6) */
 const COL = {
   sno: '7.55%',
@@ -114,9 +114,11 @@ const s = StyleSheet.create({
     marginTop: 8,
   },
   mainBox: { border: `${BW} solid ${C.border}` },
+  // Inside mainBox already, so only the bottom edge is this element's to draw;
+  // a full border doubled the box's own rules to ~5px where the machine has 2.
   sectionHeader: {
     backgroundColor: C.headerGray,
-    border: `${BW} solid ${C.border}`,
+    borderBottom: `${BW} solid ${C.border}`,
     paddingVertical: 5,
     paddingHorizontal: 6,
     fontSize: 10,
@@ -206,14 +208,16 @@ const s = StyleSheet.create({
     borderBottom: `${BW} solid ${C.border}`,
     height: 4,
   },
+  // No bottom border here: phaseTable already rules the block's bottom edge,
+  // and the two together drew a ~5px line where the machine has 2px.
   phaseDoubleLineThin: {
     flexDirection: 'row',
-    borderBottom: `${BW} solid ${C.border}`,
     height: 2,
   },
+  // The machine leaves noticeably more air around the Phase 2 dividers.
   greyDivider: {
     borderTop: `${BW} solid ${C.greyDivider}`,
-    marginVertical: 2,
+    marginVertical: 6,
   },
   grandRow: { flexDirection: 'row', borderTop: `${BW} solid ${C.border}` },
   grandLabel: {
