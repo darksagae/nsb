@@ -106,7 +106,13 @@ const s = StyleSheet.create({
   socialIcon: { width: 14, height: 14, marginRight: 4, objectFit: 'contain' },
   socialLabel: { fontSize: 7, color: C.muted, marginLeft: 2 },
   hr: { height: 1, backgroundColor: '#bdbdbd', marginVertical: 2 },
-  titleCenter: { fontSize: 14, fontWeight: 'bold', textAlign: 'center', marginBottom: 8, marginTop: 6 },
+  titleCenter: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
+    marginTop: 8,
+  },
   mainBox: { border: `${BW} solid ${C.border}` },
   sectionHeader: {
     backgroundColor: C.headerGray,
@@ -129,7 +135,7 @@ const s = StyleSheet.create({
   tableRowNoBottom: { flexDirection: 'row' },
   th: {
     backgroundColor: C.headerGray,
-    paddingVertical: 4,
+    paddingVertical: 3,
     paddingHorizontal: 6,
     fontSize: 9,
     fontWeight: 'bold',
@@ -138,19 +144,21 @@ const s = StyleSheet.create({
   },
   thLast: {
     backgroundColor: C.headerGray,
-    paddingVertical: 4,
+    paddingVertical: 3,
     paddingHorizontal: 6,
     fontSize: 9,
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  // Goods description runs 9 lines; the machine sets them on a ~1.17 pitch.
   td: {
     paddingVertical: 4,
     paddingHorizontal: 6,
     fontSize: 9,
-    borderRight: `${BW} solid ${C.border}`,
+    lineHeight: 1.17,
   },
-  tdLast: { paddingVertical: 4, paddingHorizontal: 6, fontSize: 9 },
+  tdLast: { paddingVertical: 4, paddingHorizontal: 6, fontSize: 9, lineHeight: 1.17 },
+  bodyCellRule: { borderRight: `${BW} solid ${C.border}` },
   colSno: { width: COL.sno },
   colChassis: { width: COL.chassis },
   colDesc: { width: COL.desc },
@@ -172,7 +180,7 @@ const s = StyleSheet.create({
     flex: 2,
     fontSize: 8.5,
     lineHeight: 1.1,
-    paddingVertical: 0.4,
+    paddingVertical: 0.75,
     paddingHorizontal: 2,
     borderRight: `${BW} solid ${C.border}`,
   },
@@ -181,7 +189,7 @@ const s = StyleSheet.create({
     fontSize: 8.5,
     lineHeight: 1.1,
     textAlign: 'center',
-    paddingVertical: 0.4,
+    paddingVertical: 0.75,
     paddingHorizontal: 2,
     borderRight: `${BW} solid ${C.border}`,
   },
@@ -190,7 +198,7 @@ const s = StyleSheet.create({
     fontSize: 8.5,
     lineHeight: 1.1,
     textAlign: 'right',
-    paddingVertical: 0.4,
+    paddingVertical: 0.75,
     paddingHorizontal: 2,
   },
   phaseDoubleLine: {
@@ -221,7 +229,8 @@ const s = StyleSheet.create({
   phaseColLast: { flex: 1 },
   // Match the sales machine: the breakdown sits at the top of the column and
   // the column's height is driven by its content, not a fixed minimum.
-  phaseInner: { padding: 6, justifyContent: 'flex-start' },
+  // Height matched to the machine's phase columns (~140pt of content).
+  phaseInner: { padding: 6, justifyContent: 'flex-start', minHeight: 145 },
   phaseLine: { flexDirection: 'row', marginBottom: 2 },
   phaseLineLabel: { flex: 2, fontSize: 8.5 },
   phaseLineUsd: { flex: 1, fontSize: 8.5, textAlign: 'center' },
@@ -242,7 +251,7 @@ const s = StyleSheet.create({
   },
   footerBox: {
     marginTop: 8,
-    padding: 12,
+    padding: 13.5,
     backgroundColor: C.footerGray,
     border: `${BW} solid ${C.border}`,
     position: 'relative',
@@ -286,7 +295,7 @@ const s = StyleSheet.create({
   footerTag: {
     marginTop: 5,
     backgroundColor: C.black,
-    paddingVertical: 11,
+    paddingVertical: 8,
     paddingHorizontal: 8,
     textAlign: 'center',
   },
@@ -584,13 +593,18 @@ export function buildInvoicePDF(invoice: InvoiceData, settings: Settings) {
               <View style={s.colQty}><HeaderCell>QTY</HeaderCell></View>
               <View style={s.colAmt}><HeaderCell last>AMOUNT</HeaderCell></View>
             </View>
+            {/* Column rules live on the cell wrappers, not the Text: the row is
+                as tall as the 9-line description, and a border on the Text would
+                only run the height of its own single line. */}
             <View style={s.tableRowNoBottom}>
-              <View style={s.colSno}><BodyCell center>1</BodyCell></View>
-              <View style={s.colChassis}>
+              <View style={[s.colSno, s.bodyCellRule]}><BodyCell center>1</BodyCell></View>
+              <View style={[s.colChassis, s.bodyCellRule]}>
                 <BodyCell center>{invoice.chassisNo?.trim() || 'N/A'}</BodyCell>
               </View>
-              <View style={s.colDesc}><BodyCell>{goodsDescription}</BodyCell></View>
-              <View style={s.colQty}><BodyCell center>1</BodyCell></View>
+              <View style={[s.colDesc, s.bodyCellRule]}>
+                <BodyCell>{goodsDescription}</BodyCell>
+              </View>
+              <View style={[s.colQty, s.bodyCellRule]}><BodyCell center>1</BodyCell></View>
               <View style={s.colAmt}>
                 <BodyCell center last>{fmtMoney(t.grandTotal)}</BodyCell>
               </View>
