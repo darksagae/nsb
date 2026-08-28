@@ -6,6 +6,7 @@ export const SESSION_COOKIE = 'nsb_session';
 const PUBLIC_ADMIN_PATHS = ['/admin/login', '/admin/reset-password'];
 const PUBLIC_API_PREFIXES = [
   '/api/auth/login',
+  '/api/auth/guest',
   '/api/auth/forgot-password',
   '/api/auth/reset-password',
   '/api/sync/register',

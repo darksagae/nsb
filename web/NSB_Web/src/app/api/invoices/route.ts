@@ -5,6 +5,7 @@ import { resolveInvoiceOwnerUserId } from '@/lib/invoice-access';
 import { queueGenerateInvoice } from '@/lib/invoice-generate-queue';
 import { invoicePdfIsReady } from '@/lib/invoice-pdf-s3';
 import { requireSession } from '@/lib/require-session';
+import { getGuestSessionId } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   const { user, admin, response } = await requireSession(request);
@@ -13,10 +14,13 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
+    const gsid = admin ? null : await getGuestSessionId(request);
 
     const invoices = await prisma.invoice.findMany({
       where: {
         ...(admin ? {} : { userId: user!.id }),
+        // A guest only ever sees the invoices from its own session.
+        ...(gsid ? { guestSessionId: gsid } : {}),
         ...(status ? { status } : {}),
       },
       include: { vehicle: { include: { brand: true } } },
@@ -40,9 +44,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'consigneeName is required' }, { status: 400 });
     }
 
+    const gsid = admin ? null : await getGuestSessionId(request);
+
     const ownerUserId = await resolveInvoiceOwnerUserId({
       isAdmin: !!admin,
-      salesUserId: body.salesUserId ? Number(body.salesUserId) : null,
+      // A guest may not create invoices for another sales account.
+      salesUserId: gsid ? null : body.salesUserId ? Number(body.salesUserId) : null,
       sessionUserId: user?.id ?? null,
     });
     if (!ownerUserId) {
@@ -55,6 +62,7 @@ export async function POST(request: NextRequest) {
     const inv = await prisma.invoice.create({
       data: {
         userId: ownerUserId,
+        guestSessionId: gsid,
         invoiceNumber: 'PENDING',
         status: body.status || 'draft',
         vehicleId: body.vehicleId ? Number(body.vehicleId) : null,

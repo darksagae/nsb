@@ -108,6 +108,10 @@ model Invoice {
   user          SalesUser? @relation(fields: [userId], references: [id], onDelete: SetNull)
   salesSystemId Int?     @unique @map("sales_system_id")
 
+  // Set on invoices created from an anonymous guest session so each guest only
+  // sees its own. Null for every normal (signed-in) invoice.
+  guestSessionId String? @map("guest_session_id")
+
   vehicleId     Int?     @map("vehicle_id")
   vehicle       Vehicle? @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
 
@@ -202,6 +206,7 @@ model Invoice {
 
   @@map("invoices")
   @@index([userId])
+  @@index([guestSessionId])
 }
 
 model SalesUser {

@@ -1,12 +1,33 @@
 import { prisma } from '@/lib/db';
 import { isUserOnline } from '@/lib/admin-auth';
 import { invoicePdfIsReady } from '@/lib/invoice-pdf-s3';
-import {
-  completePendingGenerateCommands,
-  generateAndAttachInvoicePdfServer,
-} from '@/lib/invoice-pdf-server';
 
 const STALE_COMMAND_MS = 45_000;
+
+// NOTE: the web server does not render invoice PDFs itself. `@/lib/invoice-pdf-server`
+// (completePendingGenerateCommands / generateAndAttachInvoicePdfServer) was referenced
+// here but never landed in the repo, which broke every build from Jun 2026 on. Until
+// that module exists, PDF generation always goes through the queued adminCommand that
+// the sales machine or control app fulfils on its next sync.
+async function completePendingGenerateCommands(userId: number, invoiceNumber: string) {
+  await prisma.adminCommand.updateMany({
+    where: {
+      userId,
+      status: 'pending',
+      command: { in: ['generate_invoice', 'ensure_invoice_pdf'] },
+      payload: { path: ['invoiceNumber'], equals: invoiceNumber },
+    },
+    data: { status: 'completed' },
+  });
+}
+
+async function generateAndAttachInvoicePdfServer(
+  _userId: number,
+  _invoiceNumber: string,
+  _source: string,
+): Promise<{ ok: boolean; error?: string }> {
+  return { ok: false, error: 'server-side PDF generation is not available' };
+}
 
 /** Queue sales machine (or control fallback) to generate PDF, upload, and finalize. */
 export async function queueGenerateInvoice(
