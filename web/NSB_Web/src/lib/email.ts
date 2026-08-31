@@ -3,6 +3,8 @@ export async function sendResendEmail(opts: {
   subject: string;
   html: string;
   text?: string;
+  /** Optional file attachments. `content` is base64 (no data: prefix). */
+  attachments?: { filename: string; content: string }[];
 }): Promise<{ ok: true } | { ok: false; error: string }> {
   const resendApiKey = process.env.RESEND_API_KEY?.trim();
   const resendFromEmail = process.env.RESEND_FROM_EMAIL?.trim() || 'info@nsbmotors.com';
@@ -23,6 +25,9 @@ export async function sendResendEmail(opts: {
       subject: opts.subject,
       html: opts.html,
       ...(opts.text ? { text: opts.text } : {}),
+      ...(opts.attachments && opts.attachments.length > 0
+        ? { attachments: opts.attachments }
+        : {}),
     }),
   });
 
