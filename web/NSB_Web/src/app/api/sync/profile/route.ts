@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
     phone: user.phone,
     profileImageUrl: user.profileImageUrl,
     role: user.role,
+    hasSecurityQuestion: !!user.securityQuestion && !!user.securityAnswerHash,
   });
 }
 

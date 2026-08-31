@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hashPassword } from '@/lib/auth';
 import { encryptPasswordPlain } from '@/lib/password-vault';
+import { hashSecurityAnswer } from '@/lib/security-question';
 import { machineIdTakenByOther } from '@/lib/machine-auth';
 import { prisma } from '@/lib/db';
 
@@ -13,6 +14,10 @@ export async function POST(request: NextRequest) {
     const role = String(body.role ?? 'user');
     const machineId = String(body.machineId ?? '').trim();
     const machineName = body.machineName ? String(body.machineName).trim() : null;
+    // Optional: let first-time setup capture the user's own recovery question.
+    const securityQuestion = body.securityQuestion ? String(body.securityQuestion).trim() : '';
+    const securityAnswer = body.securityAnswer ? String(body.securityAnswer).trim() : '';
+    const withSecurityQuestion = securityQuestion.length > 0 && securityAnswer.length >= 2;
 
     if (!username || username.length < 3) {
       return NextResponse.json({ error: 'Username must be at least 3 characters' }, { status: 400 });
@@ -51,6 +56,8 @@ export async function POST(request: NextRequest) {
         displayName,
         assignedMachineId: machineId,
         assignedMachineName: machineName,
+        securityQuestion: withSecurityQuestion ? securityQuestion : null,
+        securityAnswerHash: withSecurityQuestion ? hashSecurityAnswer(securityAnswer) : null,
       },
     });
 

@@ -8,6 +8,8 @@ const PUBLIC_API_PREFIXES = [
   '/api/auth/login',
   '/api/auth/forgot-password',
   '/api/auth/reset-password',
+  '/api/auth/security-question',
+  '/api/auth/security-answer',
   '/api/sync/register',
   '/api/sync/bind-machine',
 ];
