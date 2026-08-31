@@ -107,3 +107,19 @@ export async function bindUserMachine(
 
   return { ok: true, freshMachineBind };
 }
+
+/** Drop logout/wipe commands queued for another session (e.g. after machine transfer). */
+export async function clearStaleDesktopLogoutCommands(userId: number): Promise<void> {
+  await prisma.adminCommand.updateMany({
+    where: {
+      userId,
+      status: 'pending',
+      command: { in: ['logout_user', 'clear_local_data'] },
+    },
+    data: {
+      status: 'cancelled',
+      result: 'Superseded by a new desktop sign-in',
+      processedAt: new Date(),
+    },
+  });
+}

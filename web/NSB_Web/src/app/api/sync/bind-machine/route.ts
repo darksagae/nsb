@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hashPassword } from '@/lib/auth';
-import { bindUserMachine } from '@/lib/machine-auth';
+import { bindUserMachine, clearStaleDesktopLogoutCommands } from '@/lib/machine-auth';
 import { prisma } from '@/lib/db';
 
 /** Link an admin-created cloud account to this desktop machine (one-time). */
@@ -41,6 +41,8 @@ export async function POST(request: NextRequest) {
         { status: bindResult.code === 'machine_taken' ? 409 : 403 },
       );
     }
+
+    await clearStaleDesktopLogoutCommands(user.id);
 
     await prisma.clientActivity.create({
       data: {

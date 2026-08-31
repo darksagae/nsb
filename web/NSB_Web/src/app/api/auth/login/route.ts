@@ -8,7 +8,11 @@ import {
 } from '@/lib/auth';
 import { ensureControlAdminFromEnv } from '@/lib/bootstrap-control-admin';
 import { encryptPasswordPlain } from '@/lib/password-vault';
-import { bindUserMachine, checkDesktopMachineAccess } from '@/lib/machine-auth';
+import {
+  bindUserMachine,
+  checkDesktopMachineAccess,
+  clearStaleDesktopLogoutCommands,
+} from '@/lib/machine-auth';
 import { updateUserSession } from '@/lib/session-tracker';
 import { getUserBanState } from '@/lib/user-ban';
 import { prisma } from '@/lib/db';
@@ -229,6 +233,8 @@ export async function POST(request: NextRequest) {
         machineName: machineName ?? 'Desktop',
       });
 
+      await clearStaleDesktopLogoutCommands(user.id);
+
       await prisma.clientActivity.create({
         data: {
           userId: user.id,
@@ -290,6 +296,8 @@ export async function POST(request: NextRequest) {
       source: 'sales_system',
       machineName: machineName ?? 'Desktop',
     });
+
+    await clearStaleDesktopLogoutCommands(user.id);
 
     const token = createSessionToken({
       userId: user.id,
